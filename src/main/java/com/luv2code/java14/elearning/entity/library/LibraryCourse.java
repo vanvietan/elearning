@@ -37,5 +37,6 @@ public class LibraryCourse {
 	@JoinColumn(name="course_id")
 	private Course course;
 	
+	@Column(name="rating")
 	private int rating;
 }
