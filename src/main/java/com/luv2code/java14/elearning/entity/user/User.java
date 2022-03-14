@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
@@ -50,6 +51,9 @@ public class User {
 	
 	@Column(name="password", nullable = false)
 	private String password;
+	
+	@Transient
+	private String retypePassword;
 	
 	@ManyToOne
 	@JoinColumn(name="role_id")

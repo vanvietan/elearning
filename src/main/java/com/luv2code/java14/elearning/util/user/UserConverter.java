@@ -15,6 +15,7 @@ public class UserConverter {
 				.name(user.getName())
 				.username(user.getUsername())
 				.password(user.getPassword())
+				.retypePassword(user.getRetypePassword())
 				.email(user.getEmail())
 				.build();
 	}
@@ -35,6 +36,7 @@ public class UserConverter {
 				.name(userDTO.getName())
 				.username(userDTO.getUsername())
 				.password(userDTO.getPassword())
+				.retypePassword(userDTO.getRetypePassword())
 				.email(userDTO.getEmail())
 				.build();
 	}

@@ -33,6 +33,10 @@ public class UserDTO {
 	@Size(min = 4, max = 20)
 	private String password;
 	
+	@NotBlank(message="Retype your Password please")
+	@Size(min = 4, max = 20)
+	private String retypePassword;
+	
 	@NotBlank(message="Name is mandatory")
 	@Size(min = 3, max = 255)
 	private String name;

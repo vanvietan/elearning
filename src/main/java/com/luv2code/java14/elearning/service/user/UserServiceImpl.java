@@ -68,6 +68,11 @@ public class UserServiceImpl implements UserService {
 		if(!emailValidation.isValidEmailAddress(user.getEmail())) {
 			throw new InvalidUserException("Email is not valid");
 		}
+		//check password và retype password
+		if(!user.getPassword().equals(user.getRetypePassword())) {
+			throw new InvalidUserException("Password mismatch!!!");
+		}
+		
 
 		User createdUser = repository.save(user);
 		
