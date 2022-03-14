@@ -19,12 +19,8 @@ import com.luv2code.java14.elearning.util.user.UserConverter;
 @Service
 public class UserServiceImpl implements UserService {
 	
-	private UserRepository repository;
-	
 	@Autowired
-	public UserServiceImpl(UserRepository theUserRepository) {
-		repository = theUserRepository;
-	}
+	private UserRepository repository;
 	
 	@Override
 	public List<UserDTO> findAll() {

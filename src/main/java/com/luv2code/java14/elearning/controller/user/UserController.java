@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
 import com.luv2code.java14.elearning.dto.user.UserDTO;
 
+@RestController
 public interface UserController {
 	
 	@GetMapping(value="/user")
