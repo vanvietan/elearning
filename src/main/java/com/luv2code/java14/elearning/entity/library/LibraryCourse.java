@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.luv2code.java14.elearning.entity.course.Course;
+import com.luv2code.java14.elearning.entity.user.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,8 @@ public class LibraryCourse {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="library_id")
-	private Library library;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="course_id")
