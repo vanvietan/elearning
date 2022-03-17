@@ -14,11 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.luv2code.java14.elearning.entity.cart.CartCourse;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
+import com.luv2code.java14.elearning.entity.library.LibraryCourse;
 import com.luv2code.java14.elearning.entity.payment.Payment;
 import com.luv2code.java14.elearning.entity.receipt.Receipt;
 
@@ -74,7 +77,17 @@ public class User {
 	private List<Receipt> receipts;
 	
 	@OneToMany(mappedBy="user")
-	private Set<UserChapterProgress> tickProgress; 
+	private List<UserChapterProgress> tickProgress; 
+	
+	@OneToMany(mappedBy="user",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH })
+	private List<CartCourse> carts;
+	
+	@OneToMany(mappedBy="user",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH })
+	private List<LibraryCourse> libraries;
 	
 	
 	//add convenience methods for bi-directional relationship padding courses 

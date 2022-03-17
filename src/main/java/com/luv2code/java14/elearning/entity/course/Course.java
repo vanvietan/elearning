@@ -51,7 +51,7 @@ public class Course {
 	private String courseInfo;
 	
 	@Column(name="price", nullable = false)
-	private int price;
+	private double price;
 	
 	@Column(name="rating")
 	private int rating;
@@ -60,17 +60,21 @@ public class Course {
 	@JoinColumn(name="course_id")
 	private List<Chapter> chapters;
 	
-	@OneToMany(mappedBy="course")
-	private Set<LibraryCourse> ratings;
+	@OneToMany(mappedBy="course",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH })
+	private List<LibraryCourse> libraries;
+	
+	@OneToMany(mappedBy="course",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH })
+	private List<CartCourse> carts;
 	
 	@OneToMany(mappedBy="course")
-	private Set<CartCourse> tickChoose;
+	private List<ReceiptCourse> prices;
 	
 	@OneToMany(mappedBy="course")
-	private Set<ReceiptCourse> prices;
-	
-	@OneToMany(mappedBy="course")
-	private Set<UserChapterProgress> tickProgress; 
+	private List<UserChapterProgress> tickProgress; 
 	
 	
 	//add convenience methods for adding chapters

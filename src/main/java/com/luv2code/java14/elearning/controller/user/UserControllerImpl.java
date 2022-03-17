@@ -23,12 +23,8 @@ import com.luv2code.java14.elearning.util.user.EmailValidation;
 @RequestMapping("/api")
 public class UserControllerImpl implements UserController {
 	
-	private UserService service;
-	
 	@Autowired
-	public UserControllerImpl(UserService theUserService) {
-		service = theUserService;
-	}
+	private UserService service;
 	
 	@Override
 	public ResponseEntity<Object> findAllUser() {

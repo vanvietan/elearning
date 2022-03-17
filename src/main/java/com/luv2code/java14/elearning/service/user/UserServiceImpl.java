@@ -1,5 +1,6 @@
 package com.luv2code.java14.elearning.service.user;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +12,12 @@ import com.luv2code.java14.elearning.common.exception.InvalidUserException;
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
 import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.entity.cart.CartCourse;
+import com.luv2code.java14.elearning.entity.user.Role;
 import com.luv2code.java14.elearning.entity.user.User;
 import com.luv2code.java14.elearning.repository.user.UserRepository;
 import com.luv2code.java14.elearning.util.user.EmailValidation;
 import com.luv2code.java14.elearning.util.user.UserConverter;
-
-
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,12 +25,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private EmailValidation emailValidation;
 	
-	private UserRepository repository;
-	
 	@Autowired
-	public UserServiceImpl(UserRepository theUserRepository) {
-		repository = theUserRepository;
-	}
+	private UserRepository repository;
 	
 	@Override
 	public List<UserDTO> findAll() {
@@ -73,8 +70,8 @@ public class UserServiceImpl implements UserService {
 			throw new InvalidUserException("Password mismatch!!!");
 		}
 		
-
 		User createdUser = repository.save(user);
+		
 		
 		return UserConverter.toUserDTO(createdUser);
 	}
@@ -146,14 +143,6 @@ public class UserServiceImpl implements UserService {
 		
 		return repository.findByEmail(email);
 	}
-
-	@Override
-	public Optional<User> findByPassword(String password) {
-		
-		return repository.findByPassword(password);
-	}
-
-	
 
 
 }
