@@ -8,4 +8,5 @@ import com.luv2code.java14.elearning.entity.cart.CartKey;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, CartKey> {
+	
 }
