@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
-import com.luv2code.java14.elearning.entity.library.LibraryCourse;
+import com.luv2code.java14.elearning.entity.library.Library;
 import com.luv2code.java14.elearning.entity.payment.Payment;
 import com.luv2code.java14.elearning.entity.receipt.Receipt;
 
@@ -90,7 +90,7 @@ public class User {
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH },
 			fetch = FetchType.LAZY)
-	private Set<LibraryCourse> libraries;
+	private Set<Library> libraries;
 	
 	
 	//add convenience methods for bi-directional relationship padding courses 
