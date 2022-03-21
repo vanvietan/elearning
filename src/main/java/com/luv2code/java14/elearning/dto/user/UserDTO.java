@@ -21,18 +21,23 @@ public class UserDTO {
 	
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message="Username is mandatory")
 	@Size(max = 20)
 	private String username;
 	
-	@NotBlank
+	@NotBlank(message="Email is mandatory")
+	@Size(max=255)
 	private String email;
 	
-	@NotBlank
-	@Size(min = 4)
+	@NotBlank(message="Password is mandatory")
+	@Size(min = 4, max = 20)
 	private String password;
 	
-	@NotBlank
-	@Size(min = 3)
+	@NotBlank(message="Retype your Password please")
+	@Size(min = 4, max = 20)
+	private String retypePassword;
+	
+	@NotBlank(message="Name is mandatory")
+	@Size(min = 3, max = 255)
 	private String name;
 }

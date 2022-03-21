@@ -14,10 +14,14 @@ import com.luv2code.java14.elearning.dto.user.UserDTO;
 import com.luv2code.java14.elearning.entity.user.Role;
 import com.luv2code.java14.elearning.entity.user.User;
 import com.luv2code.java14.elearning.repository.user.UserRepository;
+import com.luv2code.java14.elearning.util.user.EmailValidation;
 import com.luv2code.java14.elearning.util.user.UserConverter;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private EmailValidation emailValidation;
 	
 	@Autowired
 	private UserRepository repository;
@@ -52,9 +56,20 @@ public class UserServiceImpl implements UserService {
 		//đầu tiên chuyển userDTO thành user
 		//save user vào database
 		//trả createdUser về lại userDTO
+		
 		User user = UserConverter.toUser(userDTO);
 		
+		//check email
+		if(!emailValidation.isValidEmailAddress(user.getEmail())) {
+			throw new InvalidUserException("Email is not valid");
+		}
+		//check password và retype password
+		if(!user.getPassword().equals(user.getRetypePassword())) {
+			throw new InvalidUserException("Password mismatch!!!");
+		}
+		
 		User createdUser = repository.save(user);
+		
 		
 		return UserConverter.toUserDTO(createdUser);
 	}
@@ -83,6 +98,9 @@ public class UserServiceImpl implements UserService {
 		if(!user.getEmail().equals(updateUserDTO.getEmail())){
 			if(repository.findByEmail(updateUserDTO.getEmail()).isPresent()) {
 				throw new InvalidUserException("Email has been used.");
+			}
+			else if(!emailValidation.isValidEmailAddress(updateUserDTO.getEmail())) {
+				throw new InvalidUserException("Email is not valid");
 			}
 			user.setEmail(updateUserDTO.getEmail());
 		}
@@ -123,14 +141,5 @@ public class UserServiceImpl implements UserService {
 		
 		return repository.findByEmail(email);
 	}
-
-	@Override
-	public Optional<User> findByPassword(String password) {
-		
-		return repository.findByPassword(password);
-	}
-
-	
-
 
 }

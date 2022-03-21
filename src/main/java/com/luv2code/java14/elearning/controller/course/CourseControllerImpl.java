@@ -18,15 +18,15 @@ import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.service.course.CourseService;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/api")
 public class CourseControllerImpl implements CourseController {
 
 	@Autowired
 	private CourseService service;
 
 	@Override
-	public ResponseEntity<Object> getCourse(String courseKeyword) {
-		List<CourseDTO> result = service.getCourse(courseKeyword);
+	public ResponseEntity<Object> getCourseByKeyword(String courseKeyword) {
+		List<CourseDTO> result = service.getCourseByKeyword(courseKeyword);
 		return ResponseHandler.getResponse(result, HttpStatus.OK);
 	}
 
@@ -42,7 +42,7 @@ public class CourseControllerImpl implements CourseController {
 	}
 
 	@Override
-	public ResponseEntity<Object> updateCourse(long id, @Valid UpdateCourseDTO dto, BindingResult bindingResult) {
+	public ResponseEntity<Object> updateCourse(int id, @Valid UpdateCourseDTO dto, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return ResponseHandler.getErrorResponse(bindingResult, HttpStatus.BAD_REQUEST);
 		}
@@ -53,10 +53,24 @@ public class CourseControllerImpl implements CourseController {
 	}
 
 	@Override
-	public ResponseEntity<Object> deleteCourse(long id) {
+	public ResponseEntity<Object> deleteCourse(int id) {
 		
 		service.deleteCourse(id);
 		
 		return ResponseHandler.getResponse("Deleted role successfully", HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<Object> getCourse(int courseId) {
+
+		CourseDTO courseDTO = service.getCourse(courseId);
+		
+		return ResponseHandler.getResponse(courseDTO, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<Object> getCourseById(int id) {
+		CourseDTO getCourse = service.getCourseById(id);
+		return ResponseHandler.getResponse(getCourse,HttpStatus.OK);
 	}
 }

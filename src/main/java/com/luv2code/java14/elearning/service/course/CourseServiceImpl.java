@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidCourseException;
-import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.course.CourseDTO;
 import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
@@ -22,26 +21,25 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository repository;
 	
 	@Override
-	public List<CourseDTO> getCourse(String courseKeyword) {
+	public List<CourseDTO> getCourseByKeyword(String courseKeyword) {
+		
 		List<Course> courses = repository.findAll();
 		
 		List<Course> result = new LinkedList<Course>();
 		
 		if(courseKeyword.isBlank()) {
-			result = courses;
+			result.equals(courses);
 		} else {
 			for (Course course : courses) {
-				if(course.getCourseName().contains(courseKeyword) 
+				if(course.getName().contains(courseKeyword) 
 						|| course.getCourseInfo().contains(courseKeyword)) {
 					result.add(course);
 				}
 			}	
 		}
 		
-//		List<CourseDTO> courseDTO = CourseConverter.toCourseDTOs(result);
 		return CourseConverter.toCourseDTOs(result);
 	}
-
 
 	@Override
 	public CourseDTO createCourse(CourseDTO dto) {
@@ -54,18 +52,24 @@ public class CourseServiceImpl implements CourseService {
 
 
 	@Override
-	public CourseDTO updateCourse(long id, UpdateCourseDTO dto) {
+	public CourseDTO updateCourse(int id, UpdateCourseDTO dto) {
 		Optional<Course> courseOpt = repository.findById(id);
 		
 		Course course = courseOpt.get();
 		
-		if (!course.getCourseName().equals(dto.getCourseName())) {		
-			course.setCourseName(dto.getCourseName());
+		if (!course.getName().equals(dto.getCourseName())) {		
+			if (repository.findByName(dto.getCourseName()).isPresent()){
+				throw new InvalidCourseException("Course name has been used.");
+			}
+			
+			course.setName(dto.getCourseName());
 		}
 		
 		course.setCourseInfo(dto.getCourseInfo());
 		
 		course.setPrice(dto.getPrice());
+		
+		course.setRating(dto.getRating());
 		
 		Course updatedCourse = repository.save(course);
 		
@@ -74,7 +78,7 @@ public class CourseServiceImpl implements CourseService {
 
 
 	@Override
-	public void deleteCourse(long id) {
+	public void deleteCourse(int id) {
 		Optional<Course> courseOpt = repository.findById(id);
 		
 		if (!courseOpt.isPresent())
@@ -82,6 +86,26 @@ public class CourseServiceImpl implements CourseService {
 		
 		repository.delete(courseOpt.get());
 	}
-	
+
+
+	@Override
+	public CourseDTO getCourse(int courseId) {
+
+		Course course = repository.getById(courseId);
+		
+		return CourseConverter.toCourseDTO(course);
+	}
+
+	@Override
+	public CourseDTO getCourseById(int id) {
+		Optional<Course> courseOpt = repository.findById(id);
+		if(!courseOpt.isPresent()) {
+			throw new InvalidCourseException("Course id is not valid");
+		}
+		Course course = courseOpt.get();
+		
+		return CourseConverter.toCourseDTO(course);
+	}
+
 
 }

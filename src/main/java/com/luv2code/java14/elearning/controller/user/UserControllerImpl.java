@@ -20,18 +20,13 @@ import com.luv2code.java14.elearning.service.user.UserService;
 @RequestMapping("/api")
 public class UserControllerImpl implements UserController {
 	
+	@Autowired
 	private UserService service;
 	
-	@Autowired
-	public UserControllerImpl(UserService theUserService) {
-		service = theUserService;
-	}
-
 	@Override
 	public ResponseEntity<Object> findAllUser() {
-		List<UserDTO> users = service.findAll();
-		
-		return ResponseHandler.getResponse(users, HttpStatus.OK);
+		List<UserDTO> users = service.findAll();	
+		return ResponseHandler.getResponse(users, HttpStatus.OK); 	
 	}
 
 	//getUser là tìm 1 User và xuất ra DTO
@@ -49,6 +44,7 @@ public class UserControllerImpl implements UserController {
 		if(bindingResult.hasErrors()) {
 			return ResponseHandler.getErrorResponse(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
 		}
+		
 		UserDTO createdUser = service.createUser(userDTO);
 		
 		return ResponseHandler.getResponse(createdUser,HttpStatus.OK);

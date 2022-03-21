@@ -18,26 +18,36 @@ import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
 
 public interface CourseController {
 
-	@GetMapping(value = "/get")
-	public ResponseEntity<Object> getCourse(
+	@GetMapping(value = "/course/get")
+	public ResponseEntity<Object> getCourseByKeyword(
 			@RequestParam("keyword") String courseKeyword
 			);
 	
-	@PostMapping(value = "/post")
+	@GetMapping(value = "/course/get/{course-id}")
+	public ResponseEntity<Object> getCourse(
+			@PathVariable(value = "course-id") int courseId
+			);
+	
+	@PostMapping(value = "/course/post")
 	public ResponseEntity<Object> createCourse(
 			@Valid @RequestBody CourseDTO dto,
 				BindingResult bindingResult
 			);
 	
-	@PutMapping(value = "/update/{id}")
+	@PutMapping(value = "/course/update/{course-id}")
 	public ResponseEntity<Object> updateCourse(
-			@PathVariable("courseId") long id,
+			@PathVariable("courseId") int id,
 			@Valid @RequestBody UpdateCourseDTO dto,
 				BindingResult bindingResult
 			);
 
-	@DeleteMapping(value = "/delete/{id}")
+	@DeleteMapping(value = "/course/delete/{course-id}")
 	public ResponseEntity<Object> deleteCourse(
-			@PathVariable("courseId") long id
+			@PathVariable("courseId") int id
 			);	
+	
+	@GetMapping(value="/course/{courseId}")
+	public ResponseEntity<Object> getCourseById(
+			 @PathVariable("userId") int id 
+			);
 }

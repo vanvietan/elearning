@@ -18,4 +18,7 @@ public class UpdateCourseDTO {
 
 	@NotBlank(message = "{course.price.not-blank}")
 	private int price;
+
+	@NotBlank(message = "{course.rating.not-blank}")
+	private int rating;
 }

@@ -10,12 +10,16 @@ import com.luv2code.java14.elearning.entity.course.Course;
 
 public interface CourseService {
 
-	List<CourseDTO> getCourse(String courseKeyword);
+	CourseDTO getCourse(int courseId);
 
-	CourseDTO updateCourse(long id, UpdateCourseDTO dto);
+	CourseDTO updateCourse(int id, UpdateCourseDTO dto);
 
 	CourseDTO createCourse(CourseDTO dto);
 
-	void deleteCourse(long id);
+	void deleteCourse(int id);
+
+	List<CourseDTO> getCourseByKeyword(String courseKeyword);
+	
+	CourseDTO getCourseById(int id);
 
 }

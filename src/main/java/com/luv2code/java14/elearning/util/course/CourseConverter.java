@@ -11,7 +11,7 @@ public class CourseConverter {
 		
 		return CourseDTO.builder()
 				.id(course.getId())
-				.courseName(course.getCourseName())
+				.courseName(course.getName())
 				.courseInfo(course.getCourseInfo())
 				.rating(course.getRating())
 				.price(course.getPrice())
@@ -31,7 +31,7 @@ public class CourseConverter {
 	public static Course toCourse(CourseDTO courseDTO) {
 		return Course.builder()
 				.id(courseDTO.getId())
-				.courseName(courseDTO.getCourseName())
+				.name(courseDTO.getCourseName())
 				.courseInfo(courseDTO.getCourseInfo())
 				.rating(courseDTO.getRating())
 				.price(courseDTO.getPrice())

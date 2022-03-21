@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.luv2code.java14.elearning.entity.course.Course;
+import com.luv2code.java14.elearning.entity.user.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,14 +32,20 @@ public class CartCourse {
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name="cart_id")
-	private Cart cart;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="course_id")
 	private Course course;
 	
-	@Column(name="tick")
-	private boolean tickChoose;
+	@Transient
+	private double price;
+
+	// helper method
+	public void addCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
