@@ -1,11 +1,7 @@
 package com.luv2code.java14.elearning.service.cart;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.luv2code.java14.elearning.common.exception.DuplicateCourseException;
-import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.entity.cart.UserCourse;
-import com.luv2code.java14.elearning.entity.cart.UserCourseKey;
+import com.luv2code.java14.elearning.entity.cart.Cart;
+import com.luv2code.java14.elearning.entity.cart.CartKey;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.user.User;
 import com.luv2code.java14.elearning.repository.cart.UserCourseRepository;
@@ -49,12 +43,12 @@ public class CartServiceImpl implements CartService {
 				.orElseThrow(
 				() -> new EntityNotFoundException("Course is not existed"));
 		
-		UserCourseKey key = new UserCourseKey(userId, courseId);
-		Optional<UserCourse> optUserCourse = userCourseRepository.findById(key);
+		CartKey key = new CartKey(userId, courseId);
+		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
 		if (optUserCourse.isPresent())
 			return;
 		
-		UserCourse userCourse = new UserCourse();
+		Cart userCourse = new Cart();
 		userCourse.setKey(key);
 		userCourse.setUser(user);
 		userCourse.setCourse(course);
@@ -77,6 +71,7 @@ public class CartServiceImpl implements CartService {
 //			BeanUtils.copyProperties(course, dto);
 //			dtos.add(dto);
 //		}
+//		return dtos;		
 		
 		return user.getUserCourses()
 				.stream()
@@ -86,14 +81,12 @@ public class CartServiceImpl implements CartService {
 					return dto;
 				})
 				.collect(Collectors.toList());
-		
-//		return dtos;
 	}
 	
 	@Override
 	public void deleteCourseFromCart(int courseId, int userId) {
-		UserCourseKey key = new UserCourseKey(userId, courseId);
-		Optional<UserCourse> optUserCourse = userCourseRepository.findById(key);
+		CartKey key = new CartKey(userId, courseId);
+		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
 		if (optUserCourse.isPresent())
 			userCourseRepository.deleteById(key);
 		

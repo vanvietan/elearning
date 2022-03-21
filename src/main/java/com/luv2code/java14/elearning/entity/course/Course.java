@@ -16,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.luv2code.java14.elearning.entity.cart.UserCourse;
+import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.chapter.Chapter;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.library.LibraryCourse;
@@ -51,7 +51,7 @@ public class Course {
 	@Column(name="course_info")
 	private String courseInfo;
 	
-	@Column(name="price", nullable = false)
+	@Column(name="price")
 	private double price;
 	
 	@Column(name="rating")
@@ -69,7 +69,7 @@ public class Course {
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH })
-	private Set<UserCourse> userCourses = new HashSet<>();
+	private Set<Cart> userCourses = new HashSet<>();
 	
 	@OneToMany(mappedBy="course")
 	private List<ReceiptCourse> prices;

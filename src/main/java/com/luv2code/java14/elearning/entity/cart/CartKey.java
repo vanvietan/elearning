@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
-public class UserCourseKey implements Serializable{
+public class CartKey implements Serializable{
 	@Column(name="user_id")
 	private int userId;
 	

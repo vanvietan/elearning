@@ -20,9 +20,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCourse {
+public class Cart {
 	@EmbeddedId
-	private UserCourseKey key;
+	private CartKey key;
 	
 	@ManyToOne
 	@MapsId("userId")
