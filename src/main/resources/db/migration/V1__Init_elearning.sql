@@ -33,7 +33,7 @@ CREATE TABLE `user` (
   `email` varchar(255) UNIQUE NOT NULL,
   `username` varchar(255) UNIQUE NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role_id` tinyint NOT NULL DEFAULT 1
+  `role_id` tinyint DEFAULT 1
 );
 
 CREATE TABLE `library_course` (
@@ -114,4 +114,5 @@ ALTER TABLE `receipt` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`course_id`) REFERENCES `course` (`id`);
 
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`receipt_id`) REFERENCES `receipt` (`id`);
+
 
