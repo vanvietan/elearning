@@ -1,7 +1,6 @@
 package com.luv2code.java14.elearning.entity.user;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.luv2code.java14.elearning.entity.cart.CartCourse;
+import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.library.LibraryCourse;
@@ -64,36 +63,40 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<Course> courses;
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
+	private Set<Course> courses;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="user_id")
-	private List<Payment> payments;
+	private Set<Payment> payments;
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<Receipt> receipts;
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
+	private Set<Receipt> receipts;
 	
-	@OneToMany(mappedBy="user")
-	private List<UserChapterProgress> tickProgress; 
-	
-	@OneToMany(mappedBy="user",
-			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<CartCourse> carts;
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private Set<UserChapterProgress> tickProgress; 
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<LibraryCourse> libraries;
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
+	private Set<Cart> userCourses = new HashSet<>();
+	
+	@OneToMany(mappedBy="user",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
+	private Set<LibraryCourse> libraries;
 	
 	
 	//add convenience methods for bi-directional relationship padding courses 
 	public void add(Course tempCourse) {
 		if(courses == null) {
-			courses = new ArrayList<>();
+			courses = new HashSet<>();
 		}
 		courses.add(tempCourse);
 		tempCourse.setUser(this);
@@ -102,7 +105,7 @@ public class User {
 	//add convenience methods for adding payment
 	public void add(Payment tempPayment) {
 		if(payments == null) {
-			payments = new ArrayList<>();
+			payments = new HashSet<>();
 		}
 		payments.add(tempPayment);
 	}
@@ -111,7 +114,7 @@ public class User {
 	
 	public void add(Receipt tempReceipt) {
 		if(receipts == null) {
-			receipts = new ArrayList<>();
+			receipts = new HashSet<>();
 		}
 		
 		receipts.add(tempReceipt);
