@@ -20,4 +20,6 @@ public class UpdateCourseDTO {
 	private String courseInfo;
 
 	private int price;
+	
+	private int rating;
 }

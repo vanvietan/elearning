@@ -58,12 +58,12 @@ public class CourseServiceImpl implements CourseService {
 		
 		Course course = courseOpt.get();
 		
-		if (!course.getName().equals(dto.getCourseName())) {		
-			if (repository.findByName(dto.getCourseName()).isPresent()){
+		if (!course.getName().equals(dto.getName())) {		
+			if (repository.findByName(dto.getName()).isPresent()){
 				throw new InvalidCourseException("Course name has been used.");
 			}
 			
-			course.setName(dto.getCourseName());
+			course.setName(dto.getName());
 		}
 		
 		course.setCourseInfo(dto.getCourseInfo());
