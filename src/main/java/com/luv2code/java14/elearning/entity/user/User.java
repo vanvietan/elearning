@@ -1,6 +1,7 @@
 package com.luv2code.java14.elearning.entity.user;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.luv2code.java14.elearning.entity.cart.CartCourse;
+import com.luv2code.java14.elearning.entity.cart.UserCourse;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.library.LibraryCourse;
@@ -64,7 +65,8 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
 	private List<Course> courses;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -81,8 +83,9 @@ public class User {
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<CartCourse> carts;
+					CascadeType.DETACH, CascadeType.REFRESH },
+			fetch = FetchType.LAZY)
+	private Set<UserCourse> userCourses = new HashSet<>();
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,

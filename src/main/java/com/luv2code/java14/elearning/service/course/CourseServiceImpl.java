@@ -12,7 +12,6 @@ import com.luv2code.java14.elearning.dto.course.CourseDTO;
 import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.repository.course.CourseRepository;
-import com.luv2code.java14.elearning.util.course.CourseConverter;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -38,16 +37,18 @@ public class CourseServiceImpl implements CourseService {
 			}	
 		}
 		
-		return CourseConverter.toCourseDTOs(result);
+//		return CourseConverter.toCourseDTOs(result);
+		return null;
 	}
 
 	@Override
 	public CourseDTO createCourse(CourseDTO dto) {
-		Course course = CourseConverter.toCourse(dto);
-		
-		Course createdCourse = repository.save(course);
-		
-		return CourseConverter.toCourseDTO(createdCourse);
+//		Course course = CourseConverter.toCourse(dto);
+//		
+//		Course createdCourse = repository.save(course);
+//		
+//		return CourseConverter.toCourseDTO(createdCourse);
+		return null;
 	}
 
 
@@ -73,7 +74,8 @@ public class CourseServiceImpl implements CourseService {
 		
 		Course updatedCourse = repository.save(course);
 		
-		return CourseConverter.toCourseDTO(updatedCourse);
+//		return CourseConverter.toCourseDTO(updatedCourse);
+		return null;
 	}
 
 
@@ -93,7 +95,8 @@ public class CourseServiceImpl implements CourseService {
 
 		Course course = repository.getById(courseId);
 		
-		return CourseConverter.toCourseDTO(course);
+//		return CourseConverter.toCourseDTO(course);
+		return null;
 	}
 
 	@Override
@@ -104,7 +107,8 @@ public class CourseServiceImpl implements CourseService {
 		}
 		Course course = courseOpt.get();
 		
-		return CourseConverter.toCourseDTO(course);
+//		return CourseConverter.toCourseDTO(course);
+		return null;
 	}
 
 

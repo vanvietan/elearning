@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 public interface CartController {
 
-	@GetMapping(value="/cart/{cartId}")
+	@GetMapping(value="/cart/{userId}")
 	public ResponseEntity<Object> getAllCourseByUserId(
-			@PathVariable("cartId") int cartId
+			@PathVariable("userId") int userId
 			);	
 	
 	@PostMapping(value = "/cart/{userId}/{courseId}")

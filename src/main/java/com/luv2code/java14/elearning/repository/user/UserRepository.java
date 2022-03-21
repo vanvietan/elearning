@@ -2,6 +2,7 @@ package com.luv2code.java14.elearning.repository.user;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +15,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	Optional<User> findByUsername(String username);
 
 	Optional<User> findByEmail(String email);
+	
+	@Override
+	@EntityGraph(attributePaths = {"userCourses","userCourses.course"})
+	Optional<User> findById(Integer id);
 }

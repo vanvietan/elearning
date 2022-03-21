@@ -1,6 +1,7 @@
 package com.luv2code.java14.elearning.entity.course;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.luv2code.java14.elearning.entity.cart.CartCourse;
+import com.luv2code.java14.elearning.entity.cart.UserCourse;
 import com.luv2code.java14.elearning.entity.chapter.Chapter;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.library.LibraryCourse;
@@ -68,7 +69,7 @@ public class Course {
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH })
-	private List<CartCourse> carts;
+	private Set<UserCourse> userCourses = new HashSet<>();
 	
 	@OneToMany(mappedBy="course")
 	private List<ReceiptCourse> prices;

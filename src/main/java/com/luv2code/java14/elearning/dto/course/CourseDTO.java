@@ -18,18 +18,15 @@ import lombok.ToString;
 @Builder
 public class CourseDTO {
 
-	private int id;
 	
 	@NotBlank
 	@Size(max = 20)
-	private String courseName;
+	private String name;
 	
 	@NotBlank
 	private String courseInfo;
 	
-	@NotBlank
 	private double price;
 	
-	@NotBlank
 	private int rating;
 }
