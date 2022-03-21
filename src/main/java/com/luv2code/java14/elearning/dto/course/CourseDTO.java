@@ -30,6 +30,5 @@ public class CourseDTO {
 	@NotBlank
 	private double price;
 	
-	@NotBlank
 	private int rating;
 }

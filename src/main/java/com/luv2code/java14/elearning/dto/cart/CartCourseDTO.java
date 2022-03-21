@@ -24,8 +24,6 @@ public class CartCourseDTO {
 	
 	private Course course;
 	
-	private boolean tickChoose;
-	
 	private double price;
 	
 	public int getUserId() {
