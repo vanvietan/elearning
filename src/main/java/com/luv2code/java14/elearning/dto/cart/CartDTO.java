@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class CartCourseDTO {
+public class CartDTO {
 	
 	private int id;
 	

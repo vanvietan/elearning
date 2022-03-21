@@ -1,96 +1,94 @@
 package com.luv2code.java14.elearning.service.cart;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import javax.validation.Valid;
+import javax.persistence.EntityNotFoundException;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.luv2code.java14.elearning.common.exception.NotFoundException;
-import com.luv2code.java14.elearning.dto.cart.CartCourseDTO;
 import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.entity.cart.CartCourse;
+import com.luv2code.java14.elearning.entity.cart.Cart;
+import com.luv2code.java14.elearning.entity.cart.CartKey;
 import com.luv2code.java14.elearning.entity.course.Course;
-import com.luv2code.java14.elearning.repository.cart.CartRepository;
+import com.luv2code.java14.elearning.entity.user.User;
+import com.luv2code.java14.elearning.repository.cart.UserCourseRepository;
 import com.luv2code.java14.elearning.repository.course.CourseRepository;
-import com.luv2code.java14.elearning.util.cart.CartCourseConverter;
-import com.luv2code.java14.elearning.util.course.CourseConverter;
+import com.luv2code.java14.elearning.repository.user.UserRepository;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class CartServiceImpl implements CartService {
 	
-	@Autowired
-	private CartRepository cartRepository;
+	@Autowired 
+	private UserCourseRepository userCourseRepository;
 	
 	@Autowired
 	private CourseRepository courseRepository;
-
+	
+	@Autowired 
+	private UserRepository userRepository;
+	
 	@Override
-	public List<CourseDTO> getAllCourseByCartId(int cartId) {
+	public void addCourseToCart(int courseId, int userId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+				() -> new EntityNotFoundException("User is not existed"));
 		
-		//Tìm * trong bảng cart_course thỏa mãn cartId
-		List<CartCourse> cartCourses = cartRepository.getAllCourseByCartId(cartId);
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(
+				() -> new EntityNotFoundException("Course is not existed"));
 		
-		//Add danh sách courseIds từ bảng cart_course
-		List<Integer> courseIds = new ArrayList<>();
-		for(CartCourse c : cartCourses) {
-			courseIds.add(c.getCourse().getId());
-		}
+		CartKey key = new CartKey(userId, courseId);
+		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
+		if (optUserCourse.isPresent())
+			return;
 		
-		//Mang danh sách courseIds qua bảng course lấy hết thông tin
-		List<Course> courses = courseRepository.findAllById(courseIds);
+		Cart userCourse = new Cart();
+		userCourse.setKey(key);
+		userCourse.setUser(user);
+		userCourse.setCourse(course);
+		userCourse.setPrice(course.getPrice());
 		
-		
-		return CourseConverter.toCourseDTOs(courses);
+		userCourseRepository.save(userCourse);
 	}
-//	@Override
-//	public CartCourseDTO selectCourse(int courseId, int cartId) {
-//		Optional<CartCourse> cartCourseOpt = cartRepository.findByCourseIdCartId(courseId, cartId);
-//		if(!cartCourseOpt.isPresent()) {
-//			throw new NotFoundException("CourseId or CartId is not correct");
-//		}
-//		CartCourse chooseCourse = cartCourseOpt.get();
-//		
-//		if(chooseCourse.isTickChoose() == false) {
-//			chooseCourse.setTickChoose(true);
-//		} else {
-//			chooseCourse.setTickChoose(false);
-//		}
-//		CartCourse chosenCourse = cartRepository.save(chooseCourse);
-//		
-//		return CartCourseConverter.toCartCourseDTO(chosenCourse);
-//	}
 	
-
 	@Override
-	public void deleteCartCourse(int courseId, int cartId) {
-		Optional<CartCourse> cartCourseOpt = cartRepository.findByCourseIdCartId(courseId, cartId);
-		if(!cartCourseOpt.isPresent()) {
-			throw new NotFoundException("CourseId or CartId is not correct");
-		}
-		cartRepository.delete(cartCourseOpt.get());
+	public List<CourseDTO> getAllCourseByUserId(int userId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+				() -> new EntityNotFoundException("User is not existed"));
+		
+//		Set<UserCourse> userCourses = user.getUserCourses();
+//		List<CourseDTO> dtos = new ArrayList<>();
+//		for (UserCourse uc : userCourses) {
+//			Course course = uc.getCourse();
+//			CourseDTO dto = new CourseDTO();
+//			BeanUtils.copyProperties(course, dto);
+//			dtos.add(dto);
+//		}
+//		return dtos;		
+		
+		return user.getUserCourses()
+				.stream()
+				.map(uc -> {
+					CourseDTO dto = new CourseDTO();
+					BeanUtils.copyProperties(uc.getCourse(), dto);
+					return dto;
+				})
+				.collect(Collectors.toList());
 	}
-//	@Override
-//	public Double totalPrice(int cartId) {
-//		List<CartCourse> cartCourse = cartRepository.findTickedCourse(cartId, true);
-//		
-//		List<Integer> courseIds = new ArrayList<>();
-//		for(CartCourse cart : cartCourse) {
-//			courseIds.add(cart.getCourse().getId());
-//		}
-//		double totalPrice = 0;
-//		List<Course> courses = courseRepository.findAllById(courseIds);
-//		for(Course course : courses) {
-//			totalPrice += course.getPrice();
-//		}
-//		
-//		return totalPrice;
-//	}
-
 	
-	
-
+	@Override
+	public void deleteCourseFromCart(int courseId, int userId) {
+		CartKey key = new CartKey(userId, courseId);
+		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
+		if (optUserCourse.isPresent())
+			userCourseRepository.deleteById(key);
+		
+	}
 }
