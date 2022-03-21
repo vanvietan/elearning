@@ -16,7 +16,7 @@ import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.cart.CartKey;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.user.User;
-import com.luv2code.java14.elearning.repository.cart.UserCourseRepository;
+import com.luv2code.java14.elearning.repository.cart.CartRepository;
 import com.luv2code.java14.elearning.repository.course.CourseRepository;
 import com.luv2code.java14.elearning.repository.user.UserRepository;
 
@@ -25,7 +25,7 @@ import com.luv2code.java14.elearning.repository.user.UserRepository;
 public class CartServiceImpl implements CartService {
 	
 	@Autowired 
-	private UserCourseRepository userCourseRepository;
+	private CartRepository cartRepository;
 	
 	@Autowired
 	private CourseRepository courseRepository;
@@ -44,7 +44,7 @@ public class CartServiceImpl implements CartService {
 				() -> new EntityNotFoundException("Course is not existed"));
 		
 		CartKey key = new CartKey(userId, courseId);
-		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
+		Optional<Cart> optUserCourse = cartRepository.findById(key);
 		if (optUserCourse.isPresent())
 			return;
 		
@@ -54,7 +54,7 @@ public class CartServiceImpl implements CartService {
 		userCourse.setCourse(course);
 		userCourse.setPrice(course.getPrice());
 		
-		userCourseRepository.save(userCourse);
+		cartRepository.save(userCourse);
 	}
 	
 	@Override
@@ -86,9 +86,9 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void deleteCourseFromCart(int courseId, int userId) {
 		CartKey key = new CartKey(userId, courseId);
-		Optional<Cart> optUserCourse = userCourseRepository.findById(key);
+		Optional<Cart> optUserCourse = cartRepository.findById(key);
 		if (optUserCourse.isPresent())
-			userCourseRepository.deleteById(key);
+			cartRepository.deleteById(key);
 		
 	}
 }

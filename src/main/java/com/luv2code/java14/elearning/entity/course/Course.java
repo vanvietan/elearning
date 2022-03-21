@@ -62,14 +62,14 @@ public class Course {
 	
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH,
-					fetch = FetchType.LAZY })
+					CascadeType.DETACH, CascadeType.REFRESH},
+					fetch = FetchType.LAZY)
 	private Set<LibraryCourse> libraries;
 	
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH,
-					fetch = FetchType.LAZY })
+					CascadeType.DETACH, CascadeType.REFRESH},
+					fetch = FetchType.LAZY )
 	private Set<Cart> carts;
 	
 	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)
