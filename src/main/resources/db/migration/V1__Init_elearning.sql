@@ -44,11 +44,11 @@ CREATE TABLE `library_course` (
 );
 
 CREATE TABLE `user_chapter` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
   `chapter_id` int,
   `course_id` int,
-  `tick` tinyint DEFAULT 0
+  `tick` tinyint DEFAULT 0,
+  PRIMARY KEY (`user_id`, `chapter_id`, `course_id`)
 );
 
 CREATE TABLE `cart_course` (
@@ -114,6 +114,7 @@ ALTER TABLE `receipt` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`course_id`) REFERENCES `course` (`id`);
 
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`receipt_id`) REFERENCES `receipt` (`id`);
+
 
 
 
