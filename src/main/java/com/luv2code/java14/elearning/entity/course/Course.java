@@ -48,7 +48,7 @@ public class Course {
 	private User user;
 	
 	@Column(name="course_info")
-	private String courseInfo;
+	private String info;
 	
 	@Column(name="price", nullable = false)
 	private double price;
@@ -63,13 +63,13 @@ public class Course {
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH,
-					fetch = FetchType.LAZY })
+					},fetch = FetchType.LAZY)
 	private Set<LibraryCourse> libraries;
 	
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH,
-					fetch = FetchType.LAZY })
+					 },fetch = FetchType.LAZY)
 	private Set<Cart> carts;
 	
 	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)

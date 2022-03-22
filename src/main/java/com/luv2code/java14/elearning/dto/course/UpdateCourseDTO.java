@@ -17,7 +17,9 @@ public class UpdateCourseDTO {
 	
 	private String name;
 	
-	private String courseInfo;
+	private String info;
 
 	private int price;
+	
+	private int rating;
 }

@@ -25,7 +25,7 @@ public class CourseDTO {
 	private String name;
 	
 	@NotBlank
-	private String courseInfo;
+	private String info;
 	
 	@NotBlank
 	private double price;
