@@ -74,10 +74,10 @@ CREATE TABLE `receipt` (
 );
 
 CREATE TABLE `receipt_course` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
   `course_id` int,
   `receipt_id` int,
-  `price` double
+  `price` double,
+  PRIMARY KEY (`course_id`, `receipt_id`)
 );
 
 CREATE TABLE `role` (
@@ -114,5 +114,7 @@ ALTER TABLE `receipt` ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`course_id`) REFERENCES `course` (`id`);
 
 ALTER TABLE `receipt_course` ADD FOREIGN KEY (`receipt_id`) REFERENCES `receipt` (`id`);
+
+
 
 

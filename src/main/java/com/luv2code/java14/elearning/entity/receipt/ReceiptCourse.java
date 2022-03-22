@@ -1,12 +1,12 @@
 package com.luv2code.java14.elearning.entity.receipt;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.luv2code.java14.elearning.entity.course.Course;
@@ -24,17 +24,19 @@ import lombok.experimental.SuperBuilder;
 @Table(name="receipt_course")
 public class ReceiptCourse {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@EmbeddedId
+	private ReceiptCourseKey key;
 	
 	@ManyToOne
+	@MapsId("courseId")
 	@JoinColumn(name="course_id")
 	private Course course;
 	
 	@ManyToOne
+	@MapsId("receiptId")
 	@JoinColumn(name="receipt_id")
 	private Receipt receipt;
 	
+	@Column(name="price")
+	private double price;
 }
