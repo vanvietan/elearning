@@ -73,7 +73,7 @@ public class CartServiceImpl implements CartService {
 //		}
 //		return dtos;		
 		
-		return user.getUserCourses()
+		return user.getCarts()
 				.stream()
 				.map(uc -> {
 					CourseDTO dto = new CourseDTO();
