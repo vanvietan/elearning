@@ -42,6 +42,9 @@ public class Chapter {
 	@JoinColumn(name="video_id")
 	private Video video;
 	
-	@OneToMany(mappedBy="chapter")
+	@OneToMany(mappedBy="chapter",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH},
+			fetch = FetchType.LAZY)
 	private Set<UserChapterProgress> tickProgress; 
 }

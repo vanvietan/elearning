@@ -78,7 +78,10 @@ public class Course {
 			fetch = FetchType.LAZY)
 	private Set<ReceiptCourse> prices;
 	
-	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="course", 
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH},
+			fetch = FetchType.LAZY)
 	private Set<UserChapterProgress> tickProgress; 
 	
 	
