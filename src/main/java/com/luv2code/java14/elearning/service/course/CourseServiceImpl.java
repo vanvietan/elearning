@@ -31,7 +31,7 @@ public class CourseServiceImpl implements CourseService {
 		} else {
 			for (Course course : courses) {
 				if(course.getName().contains(courseKeyword) 
-						|| course.getCourseInfo().contains(courseKeyword)) {
+						|| course.getInfo().contains(courseKeyword)) {
 					result.add(course);
 				}
 			}	
@@ -66,7 +66,7 @@ public class CourseServiceImpl implements CourseService {
 			course.setName(dto.getName());
 		}
 		
-		course.setCourseInfo(dto.getCourseInfo());
+		course.setInfo(dto.getInfo());
 		
 		course.setPrice(dto.getPrice());
 		

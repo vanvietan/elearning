@@ -48,7 +48,7 @@ public class Course {
 	private User user;
 	
 	@Column(name="course_info")
-	private String courseInfo;
+	private String info;
 	
 	@Column(name="price", nullable = false)
 	private double price;
