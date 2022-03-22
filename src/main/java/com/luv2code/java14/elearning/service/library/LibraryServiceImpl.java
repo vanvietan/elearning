@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.course.CourseDTO;
+import com.luv2code.java14.elearning.dto.library.LibraryDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.library.Library;
 import com.luv2code.java14.elearning.entity.library.LibraryKey;
@@ -67,7 +69,6 @@ public class LibraryServiceImpl implements LibraryService {
 		libraryCourse.setKey(key);
 		libraryCourse.setUser(user);
 		libraryCourse.setCourse(course);
-		libraryCourse.setRating(course.getRating());
 		
 		libraryRepository.save(libraryCourse);
 		
@@ -80,6 +81,28 @@ public class LibraryServiceImpl implements LibraryService {
 		if(optLibraryCourse.isPresent())
 			libraryRepository.deleteById(key);
 		
+	}
+
+	@Override
+	public LibraryDTO rateTheCourse(int courseId, int userId, int rating) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("User id is not existed"));
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("Course id is not existed"));
+		
+		LibraryKey key = new LibraryKey(userId, courseId);
+		Optional<Library> optLibraryCourse = libraryRepository.findById(key);
+		if(!optLibraryCourse.isPresent()) {
+			throw new NotFoundException("Can't rate your course");
+		}
+		Library rateCourse = optLibraryCourse.get();
+		rateCourse.setRating(rating);
+		libraryRepository.save(rateCourse);
+		LibraryDTO dto = new LibraryDTO();
+		BeanUtils.copyProperties(rateCourse, dto);
+		return dto;
 	}
 	
 }
