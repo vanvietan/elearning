@@ -1,21 +1,23 @@
-package com.luv2code.java14.elearning.dto.library;
+package com.luv2code.java14.elearning.dto.chapter;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
-public class LibraryDTO {
+@SuperBuilder
+public class ChapterDTO {
 	
-	private int rating;  
+	private int id;
 	
-	private int progress;
+	private String title;
+	
+	private String paragraph;
 }

@@ -14,10 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.course.CourseDTO;
 import com.luv2code.java14.elearning.dto.library.LibraryDTO;
+import com.luv2code.java14.elearning.entity.chapter.Chapter;
+import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.library.Library;
 import com.luv2code.java14.elearning.entity.library.LibraryKey;
 import com.luv2code.java14.elearning.entity.user.User;
+import com.luv2code.java14.elearning.repository.chapter.ChapterProgressRepository;
+import com.luv2code.java14.elearning.repository.chapter.ChapterRepository;
 import com.luv2code.java14.elearning.repository.course.CourseRepository;
 import com.luv2code.java14.elearning.repository.library.LibraryRepository;
 import com.luv2code.java14.elearning.repository.user.UserRepository;
@@ -34,12 +38,18 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	@Autowired 
 	private UserRepository userRepository;
-
+	
+	@Autowired
+	private ChapterProgressRepository chapterProgressRepository;
+	
+	@Autowired
+	private ChapterRepository chapterRepository;
+	
 	@Override
 	public List<CourseDTO> getAllCourseByUserId(int userId) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(
-						() -> new EntityNotFoundException("User id not existed"));
+						() -> new EntityNotFoundException("User id is not existed"));
 	
 		return user.getLibraries()
 				.stream()
@@ -102,6 +112,44 @@ public class LibraryServiceImpl implements LibraryService {
 		libraryRepository.save(rateCourse);
 		LibraryDTO dto = new LibraryDTO();
 		BeanUtils.copyProperties(rateCourse, dto);
+		return dto;
+	}
+
+	@Override
+	public LibraryDTO userLearningProgress(int userId, int courseId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("User id is not existed"));
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("Course id is not existed"));
+		
+		LibraryKey key = new LibraryKey(userId, courseId);
+		Optional<Library> optLibraryCourse = libraryRepository.findById(key);
+		if(!optLibraryCourse.isPresent()) {
+			throw new NotFoundException("Can't progress your course");
+		}
+		Library library = optLibraryCourse.get();
+		LibraryDTO dto = new LibraryDTO();
+		BeanUtils.copyProperties(library, dto);
+		
+		int numberOfChapters = 0;
+		List<Chapter> chapters = chapterRepository.findByCourseId(courseId);
+		while(!chapters.isEmpty())
+			numberOfChapters++;
+		
+		if(numberOfChapters == 0)
+			numberOfChapters= 1;
+			
+		int numberOfFinishedChapters = 0;
+		List<UserChapterProgress> chaptersTick = chapterProgressRepository.findUserTicks(userId, courseId);
+		for(UserChapterProgress chapter : chaptersTick)
+			numberOfFinishedChapters = numberOfFinishedChapters + chapter.getTickProgress(); 
+		
+		int progress = (numberOfFinishedChapters*100)/numberOfChapters;
+		
+		dto.setProgress(progress);
+		
 		return dto;
 	}
 	

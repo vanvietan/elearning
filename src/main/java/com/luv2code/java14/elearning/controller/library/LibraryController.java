@@ -32,4 +32,10 @@ public interface LibraryController {
 			@PathVariable("userId") int userId,
 			@PathVariable("rating") int rating
 			);
+	
+	@GetMapping(value="/library/{userId}/{courseId}")
+	public ResponseEntity<Object> userLearningProgress(
+			@PathVariable("userId") int userId,
+			@PathVariable("courseId") int courseId
+			);
 }
