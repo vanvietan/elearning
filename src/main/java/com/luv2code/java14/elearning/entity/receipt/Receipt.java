@@ -3,8 +3,10 @@ package com.luv2code.java14.elearning.entity.receipt;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,6 +48,9 @@ public class Receipt {
 	@Column(name="created_at")
 	private LocalDateTime createdAt;
 	
-	@OneToMany(mappedBy="receipt")
+	@OneToMany(mappedBy="receipt",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH},
+			fetch = FetchType.LAZY)
 	private Set<ReceiptCourse> prices;
 }

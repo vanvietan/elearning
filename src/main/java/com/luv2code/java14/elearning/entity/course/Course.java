@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.chapter.Chapter;
 import com.luv2code.java14.elearning.entity.chapter.UserChapterProgress;
-import com.luv2code.java14.elearning.entity.library.LibraryCourse;
+import com.luv2code.java14.elearning.entity.library.Library;
 import com.luv2code.java14.elearning.entity.receipt.ReceiptCourse;
 import com.luv2code.java14.elearning.entity.user.User;
 
@@ -62,20 +62,26 @@ public class Course {
 	
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH,
-					},fetch = FetchType.LAZY)
-	private Set<LibraryCourse> libraries;
+					CascadeType.DETACH, CascadeType.REFRESH},
+					fetch = FetchType.LAZY)
+	private Set<Library> libraries;
 	
 	@OneToMany(mappedBy="course",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-					CascadeType.DETACH, CascadeType.REFRESH,
-					 },fetch = FetchType.LAZY)
+					CascadeType.DETACH, CascadeType.REFRESH},
+					fetch = FetchType.LAZY )
 	private Set<Cart> carts;
 	
-	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="course",
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH},
+			fetch = FetchType.LAZY)
 	private Set<ReceiptCourse> prices;
 	
-	@OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="course", 
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					CascadeType.DETACH, CascadeType.REFRESH},
+			fetch = FetchType.LAZY)
 	private Set<UserChapterProgress> tickProgress; 
 	
 	
