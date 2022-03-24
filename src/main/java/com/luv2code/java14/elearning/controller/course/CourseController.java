@@ -22,11 +22,6 @@ public interface CourseController {
 			@RequestParam("keyword") String courseKeyword
 			);
 	
-	@GetMapping(value = "/course/get/{course-id}")
-	public ResponseEntity<Object> getCourse(
-			@PathVariable(value = "course-id") int courseId
-			);
-	
 	@PostMapping(value = "/course/post")
 	public ResponseEntity<Object> createCourse(
 			@Valid @RequestBody CourseDTO dto,

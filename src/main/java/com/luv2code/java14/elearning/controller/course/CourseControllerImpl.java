@@ -35,10 +35,9 @@ public class CourseControllerImpl implements CourseController {
 		if (bindingResult.hasErrors()) {
 			return ResponseHandler.getErrorResponse(bindingResult, HttpStatus.BAD_REQUEST);
 		}
+		service.createCourse(dto);
 		
-		CourseDTO createdCourse = service.createCourse(dto);
-		
-		return ResponseHandler.getResponse(createdCourse, HttpStatus.OK);
+		return ResponseHandler.getResponse("create course successly", HttpStatus.OK);
 	}
 
 	@Override
@@ -47,9 +46,9 @@ public class CourseControllerImpl implements CourseController {
 			return ResponseHandler.getErrorResponse(bindingResult, HttpStatus.BAD_REQUEST);
 		}
 		
-		CourseDTO updatedCourse = service.updateCourse(id, dto);
+		service.updateCourse(id, dto);
 		
-		return ResponseHandler.getResponse(updatedCourse, HttpStatus.OK);
+		return ResponseHandler.getResponse("update course successfully", HttpStatus.OK);
 	}
 
 	@Override
@@ -58,14 +57,6 @@ public class CourseControllerImpl implements CourseController {
 		service.deleteCourse(id);
 		
 		return ResponseHandler.getResponse("Deleted role successfully", HttpStatus.OK);
-	}
-	
-	@Override
-	public ResponseEntity<Object> getCourse(int courseId) {
-
-		CourseDTO courseDTO = service.getCourse(courseId);
-		
-		return ResponseHandler.getResponse(courseDTO, HttpStatus.OK);
 	}
 	
 	@Override

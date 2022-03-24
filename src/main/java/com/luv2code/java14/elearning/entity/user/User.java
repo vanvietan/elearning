@@ -84,7 +84,7 @@ public class User {
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH },
 			fetch = FetchType.LAZY)
-	private Set<Cart> userCourses = new HashSet<>();
+	private Set<Cart> cartCourses = new HashSet<>();
 	
 	@OneToMany(mappedBy="user",
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
