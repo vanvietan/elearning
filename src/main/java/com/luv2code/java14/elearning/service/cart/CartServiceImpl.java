@@ -48,13 +48,13 @@ public class CartServiceImpl implements CartService {
 		if (optUserCourse.isPresent())
 			return;
 		
-		Cart userCourse = new Cart();
-		userCourse.setKey(key);
-		userCourse.setUser(user);
-		userCourse.setCourse(course);
-		userCourse.setPrice(course.getPrice());
+		Cart cartCourse = new Cart();
+		cartCourse.setKey(key);
+		cartCourse.setUser(user);
+		cartCourse.setCourse(course);
+		cartCourse.setPrice(course.getPrice());
 		
-		cartRepository.save(userCourse);
+		cartRepository.save(cartCourse);
 	}
 	
 	@Override
@@ -63,9 +63,9 @@ public class CartServiceImpl implements CartService {
 				.orElseThrow(
 				() -> new EntityNotFoundException("User is not existed"));
 		
-//		Set<UserCourse> userCourses = user.getUserCourses();
+//		Set<CartCourse> cartCourses = cart.getCartCourses();
 //		List<CourseDTO> dtos = new ArrayList<>();
-//		for (UserCourse uc : userCourses) {
+//		for (CartCourse uc : cartCourses) {
 //			Course course = uc.getCourse();
 //			CourseDTO dto = new CourseDTO();
 //			BeanUtils.copyProperties(course, dto);

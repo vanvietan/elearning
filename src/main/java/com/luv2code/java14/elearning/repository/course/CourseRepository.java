@@ -11,4 +11,5 @@ import com.luv2code.java14.elearning.entity.course.Course;
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
 	Optional<Course> findByName(String courseName);
+	
 }
