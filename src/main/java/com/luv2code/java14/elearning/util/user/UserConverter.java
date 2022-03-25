@@ -3,7 +3,7 @@ package com.luv2code.java14.elearning.util.user;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.dto.UserDTO;
 import com.luv2code.java14.elearning.entity.user.User;
 
 public class UserConverter {

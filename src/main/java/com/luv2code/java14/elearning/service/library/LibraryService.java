@@ -2,8 +2,8 @@ package com.luv2code.java14.elearning.service.library;
 
 import java.util.List;
 
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.library.LibraryDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.LibraryDTO;
 
 public interface LibraryService {
 

@@ -1,4 +1,6 @@
-package com.luv2code.java14.elearning.dto.chapter;
+package com.luv2code.java14.elearning.dto;
+
+import com.luv2code.java14.elearning.entity.chapter.Video;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,4 +22,6 @@ public class ChapterDTO {
 	private String title;
 	
 	private String paragraph;
+	
+	private Video video;
 }

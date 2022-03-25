@@ -2,7 +2,7 @@ package com.luv2code.java14.elearning.service.cart;
 
 import java.util.List;
 
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
 
 public interface CartService {
 

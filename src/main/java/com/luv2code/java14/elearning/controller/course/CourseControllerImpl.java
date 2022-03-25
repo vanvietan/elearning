@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.service.course.CourseService;
 

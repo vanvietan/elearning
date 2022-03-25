@@ -1,4 +1,4 @@
-package com.luv2code.java14.elearning.dto.library;
+package com.luv2code.java14.elearning.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,9 +13,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class LibraryDTO {
+public class UpdateCourseDTO {
 	
-	private int rating;  
+	private String name;
 	
-	private int progress;
+	private String info;
+
+	private int price;
+	
+	private int rating;
 }

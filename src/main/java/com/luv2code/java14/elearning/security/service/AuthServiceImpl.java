@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.IncorrectLoginException;
 import com.luv2code.java14.elearning.entity.user.User;
-import com.luv2code.java14.elearning.repository.user.UserRepository;
+import com.luv2code.java14.elearning.repository.UserRepository;
 import com.luv2code.java14.elearning.security.dto.LoginDTO;
 import com.luv2code.java14.elearning.security.jwt.JwtUtils;
 

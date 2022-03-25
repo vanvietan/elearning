@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
-import com.luv2code.java14.elearning.dto.chapter.ChapterDTO;
+import com.luv2code.java14.elearning.dto.ChapterDTO;
 import com.luv2code.java14.elearning.service.chapter.ChapterService;
 
 @RestController
@@ -33,6 +33,28 @@ public class ChapterControllerImpl implements ChapterController {
 		List<ChapterDTO> chapters = service.getAllChaptersInCourse(courseId);
 		
 		return ResponseHandler.getResponse(chapters,HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Object> getTheChapter(int chapterId) {
+		
+		ChapterDTO chapter = service.getTheChapter(chapterId);
+		
+		return ResponseHandler.getResponse(chapter, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Object> createCourse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<Object> deleteChapter(int chapterId) {
+		
+		service.deleteChapter(chapterId);
+		
+		return ResponseHandler.getResponse("Deleted Course Successfully", HttpStatus.OK);
 	}
 	
 }
