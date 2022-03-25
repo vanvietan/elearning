@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
-import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.dto.UpdateUserDTO;
+import com.luv2code.java14.elearning.dto.UserDTO;
 
 public interface UserController {
 	

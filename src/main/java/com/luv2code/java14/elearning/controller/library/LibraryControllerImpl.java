@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.library.LibraryDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.LibraryDTO;
 import com.luv2code.java14.elearning.service.library.LibraryService;
 
 @RestController

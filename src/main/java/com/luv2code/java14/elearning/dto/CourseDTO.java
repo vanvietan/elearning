@@ -1,4 +1,4 @@
-package com.luv2code.java14.elearning.dto.course;
+package com.luv2code.java14.elearning.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

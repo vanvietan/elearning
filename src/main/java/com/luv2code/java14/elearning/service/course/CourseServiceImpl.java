@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidCourseException;
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
-import com.luv2code.java14.elearning.repository.course.CourseRepository;
+import com.luv2code.java14.elearning.repository.CourseRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService {

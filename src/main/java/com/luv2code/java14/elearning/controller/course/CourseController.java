@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.UpdateCourseDTO;
 
 public interface CourseController {
 

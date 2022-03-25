@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidUserException;
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
-import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
-import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.dto.UpdateUserDTO;
+import com.luv2code.java14.elearning.dto.UserDTO;
 import com.luv2code.java14.elearning.entity.user.User;
-import com.luv2code.java14.elearning.repository.user.UserRepository;
+import com.luv2code.java14.elearning.repository.UserRepository;
 import com.luv2code.java14.elearning.util.user.EmailValidation;
 import com.luv2code.java14.elearning.util.user.UserConverter;
 
