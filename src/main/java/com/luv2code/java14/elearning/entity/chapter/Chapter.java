@@ -35,10 +35,12 @@ public class Chapter {
 	@Column(name="title")
 	private String title;
 	
-	@Column(name="paragragh")
-	private String paragragh;
+	@Column(name="paragraph")
+	private String paragraph;
 	
-	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.EAGER, 
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="video_id")
 	private Video video;
 	
@@ -47,4 +49,5 @@ public class Chapter {
 					CascadeType.DETACH, CascadeType.REFRESH},
 			fetch = FetchType.LAZY)
 	private Set<UserChapterProgress> tickProgress; 
+	
 }

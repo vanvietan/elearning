@@ -2,9 +2,12 @@ package com.luv2code.java14.elearning.controller.chapter;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,12 +45,29 @@ public class ChapterControllerImpl implements ChapterController {
 		
 		return ResponseHandler.getResponse(chapter, HttpStatus.OK);
 	}
-
+	
 	@Override
-	public ResponseEntity<Object> createCourse() {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<Object> createChapterInCourse(int courseId, @Valid ChapterDTO chapterDTO,BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors())
+			return ResponseHandler.getErrorResponse(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+		
+		ChapterDTO createdChapter = service.createChapterInCourse(courseId, chapterDTO);
+		
+		return ResponseHandler.getResponse(createdChapter,HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<Object> updateChapter(int chapterId, @Valid ChapterDTO chapterDTO, BindingResult bindingResult) {
+		
+		if(bindingResult.hasErrors())
+			return ResponseHandler.getErrorResponse(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+		
+		ChapterDTO updateChapter = service.updateChapter(chapterId, chapterDTO);
+		
+		return ResponseHandler.getResponse(updateChapter,HttpStatus.OK);
+	}
+
 
 	@Override
 	public ResponseEntity<Object> deleteChapter(int chapterId) {
@@ -56,5 +76,8 @@ public class ChapterControllerImpl implements ChapterController {
 		
 		return ResponseHandler.getResponse("Deleted Course Successfully", HttpStatus.OK);
 	}
+
+	
+	
 	
 }
