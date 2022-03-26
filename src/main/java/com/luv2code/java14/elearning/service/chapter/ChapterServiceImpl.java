@@ -64,7 +64,11 @@ public class ChapterServiceImpl implements ChapterService {
 	public List<ChapterDTO> getAllChaptersInCourse(int courseId) {
 		List<Chapter> chapters = chapterRepository.findByCourseId(courseId);
 		List<ChapterDTO> dtos = new ArrayList<>();
-		BeanUtils.copyProperties(chapters, dtos);
+		for(Chapter chapter : chapters) {
+			ChapterDTO dto = new ChapterDTO();
+			BeanUtils.copyProperties(chapter, dto);
+			dtos.add(dto);
+		}
 		return dtos;
 	}
 
@@ -86,6 +90,40 @@ public class ChapterServiceImpl implements ChapterService {
 		if(optChapter.isPresent())
 			chapterRepository.deleteById(chapterId);
 		
+	}
+
+	@Override
+	public ChapterDTO createChapterInCourse(int courseId, ChapterDTO chapterDTO) {		
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("Can't find the course id"));
+		Chapter chapter = new Chapter();
+		BeanUtils.copyProperties(chapterDTO, chapter);
+		course.add(chapter);
+		chapterRepository.save(chapter);
+		courseRepository.save(course);
+		
+		ChapterDTO dto = new ChapterDTO();
+		BeanUtils.copyProperties(chapter, dto);
+		return dto;
+	}
+
+	@Override
+	public ChapterDTO updateChapter(int chapterId, ChapterDTO chapterDTO) {
+		Chapter chapter = chapterRepository.findById(chapterId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("Can't find the chapter Id"));
+		if(!chapter.getTitle().equals(chapterDTO.getTitle())) 
+			chapter.setTitle(chapterDTO.getTitle());
+		
+		if(!chapter.getParagraph().equals(chapterDTO.getParagraph()))
+			chapter.setParagraph(chapterDTO.getParagraph());
+		
+		chapterRepository.save(chapter);
+		ChapterDTO dto = new ChapterDTO();
+		BeanUtils.copyProperties(chapter, dto);
+		
+		return dto;
 	}
 
 }
