@@ -1,4 +1,4 @@
-package com.luv2code.java14.elearning.dto.cart;
+package com.luv2code.java14.elearning.dto;
 
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.user.User;

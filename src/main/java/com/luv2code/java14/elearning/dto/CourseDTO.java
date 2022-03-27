@@ -1,4 +1,4 @@
-package com.luv2code.java14.elearning.dto.user;
+package com.luv2code.java14.elearning.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,22 +16,19 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class UpdateUserDTO {
+public class CourseDTO {
+
+	private int id;
 	
 	@NotBlank
 	@Size(max = 20)
-	private String username;
-	
-	@NotBlank
-	private String email;
-	
-	@NotBlank
-	@Size(min = 4)
-	private String password;
-	
-	@NotBlank
-	@Size(min = 3)
 	private String name;
 	
+	@NotBlank
+	private String info;
 	
+	@NotBlank
+	private double price;
+	
+	private int rating;
 }

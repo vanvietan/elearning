@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
-import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.dto.UpdateUserDTO;
+import com.luv2code.java14.elearning.dto.UserDTO;
 import com.luv2code.java14.elearning.entity.user.User;
 
 public interface UserService {

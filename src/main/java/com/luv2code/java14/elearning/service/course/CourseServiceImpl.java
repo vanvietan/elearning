@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidCourseException;
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.course.UpdateCourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
-import com.luv2code.java14.elearning.repository.course.CourseRepository;
+import com.luv2code.java14.elearning.repository.CourseRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -23,20 +23,22 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<CourseDTO> getCourseByKeyword(String courseKeyword) {
 		
-		List<Course> courses = repository.findAll();
+		List<Course> courses = repository.findByKeyword(courseKeyword);
 		
 		List<CourseDTO> result = new LinkedList<CourseDTO>();
 		
-		if(courseKeyword.isBlank()) {
-			result.equals(courses);
-		} else {
-			for (Course course : courses) {
-				if(course.getName().contains(courseKeyword) 
-						|| course.getInfo().contains(courseKeyword)) {
-					BeanUtils.copyProperties(courses, result);;
-				}
-			}	
-		}
+		BeanUtils.copyProperties(courses, result);
+		
+//		if(courseKeyword.isBlank()) {
+//			result.equals(courses);
+//		} else {
+//			for (Course course : courses) {
+//				if(course.getName().contains(courseKeyword) 
+//						|| course.getInfo().contains(courseKeyword)) {
+//					BeanUtils.copyProperties(courses, result);
+//				}
+//			}	
+//		}
 		
 		return result;
 	}

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
-import com.luv2code.java14.elearning.dto.user.UpdateUserDTO;
-import com.luv2code.java14.elearning.dto.user.UserDTO;
+import com.luv2code.java14.elearning.dto.UpdateUserDTO;
+import com.luv2code.java14.elearning.dto.UserDTO;
 import com.luv2code.java14.elearning.service.user.UserService;
 import com.luv2code.java14.elearning.util.user.EmailValidation;
 

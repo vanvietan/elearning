@@ -1,4 +1,4 @@
-package com.luv2code.java14.elearning.repository.user;
+package com.luv2code.java14.elearning.repository;
 
 import java.util.Optional;
 

@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
-import com.luv2code.java14.elearning.dto.library.LibraryDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
+import com.luv2code.java14.elearning.dto.LibraryDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.library.Library;
 import com.luv2code.java14.elearning.entity.library.LibraryKey;
 import com.luv2code.java14.elearning.entity.user.User;
-import com.luv2code.java14.elearning.repository.course.CourseRepository;
-import com.luv2code.java14.elearning.repository.library.LibraryRepository;
-import com.luv2code.java14.elearning.repository.user.UserRepository;
+import com.luv2code.java14.elearning.repository.CourseRepository;
+import com.luv2code.java14.elearning.repository.LibraryRepository;
+import com.luv2code.java14.elearning.repository.UserRepository;
 
 @Service
 @Transactional(rollbackFor = Exception.class)

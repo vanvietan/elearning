@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.luv2code.java14.elearning.dto.course.CourseDTO;
+import com.luv2code.java14.elearning.dto.CourseDTO;
 import com.luv2code.java14.elearning.entity.cart.Cart;
 import com.luv2code.java14.elearning.entity.cart.CartKey;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.user.User;
-import com.luv2code.java14.elearning.repository.cart.CartRepository;
-import com.luv2code.java14.elearning.repository.course.CourseRepository;
-import com.luv2code.java14.elearning.repository.user.UserRepository;
+import com.luv2code.java14.elearning.repository.CartRepository;
+import com.luv2code.java14.elearning.repository.CourseRepository;
+import com.luv2code.java14.elearning.repository.UserRepository;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
