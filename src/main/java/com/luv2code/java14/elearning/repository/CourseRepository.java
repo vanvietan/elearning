@@ -18,5 +18,4 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	@Modifying
 	@Query(value="SELECT * FROM course WHERE name LIKE '%?1%'", nativeQuery = true)
 	List<Course> findByKeyword(String courseKeyword);
-	
 }

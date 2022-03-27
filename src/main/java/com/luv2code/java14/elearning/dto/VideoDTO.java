@@ -1,21 +1,24 @@
 package com.luv2code.java14.elearning.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
-public class LibraryDTO {
-  
-	private int rating;  
+@SuperBuilder
+public class VideoDTO {
+	private int id;
 	
-	private int progress;
+	private String filepath;
+	
+	private String info;
+	
+	private String timeframe;
 }

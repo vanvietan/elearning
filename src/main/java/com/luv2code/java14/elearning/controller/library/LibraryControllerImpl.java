@@ -53,5 +53,13 @@ public class LibraryControllerImpl implements LibraryController{
 		return ResponseHandler.getResponse(rateCourse,HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<Object> userLearningProgress(int userId, int courseId) {
+		
+		LibraryDTO userProgress = service.userLearningProgress(userId, courseId);
+		
+		return ResponseHandler.getResponse(userProgress,HttpStatus.OK);
+	}
+
 	
 }
