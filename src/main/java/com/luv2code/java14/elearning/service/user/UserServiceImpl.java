@@ -3,16 +3,19 @@ package com.luv2code.java14.elearning.service.user;
 import java.util.List;
 import java.util.Optional;
 
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidUserException;
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.UpdateUserDTO;
 import com.luv2code.java14.elearning.dto.UserDTO;
+import com.luv2code.java14.elearning.entity.user.Role;
 import com.luv2code.java14.elearning.entity.user.User;
 import com.luv2code.java14.elearning.repository.UserRepository;
+import com.luv2code.java14.elearning.service.role.RoleService;
 import com.luv2code.java14.elearning.util.user.EmailValidation;
 import com.luv2code.java14.elearning.util.user.UserConverter;
 
@@ -24,6 +27,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private PasswordEncoder encoder;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@Override
 	public List<UserDTO> findAll() {
@@ -66,11 +75,17 @@ public class UserServiceImpl implements UserService {
 		if(!user.getPassword().equals(user.getRetypePassword())) {
 			throw new InvalidUserException("Password mismatch!!!");
 		}
+		user.setPassword(encoder.encode(userDTO.getPassword()));
 		
+		Role defaultRole = roleService.findRoleUser();
+		user.setRole(defaultRole);
 		User createdUser = repository.save(user);
+		user.setPassword(null);
+		user.setRetypePassword(null);
 		
-		
-		return UserConverter.toUserDTO(createdUser);
+		UserDTO dto = new UserDTO();
+		BeanUtils.copyProperties(createdUser, dto);
+		return dto;
 	}
 	
 	@Override
@@ -104,7 +119,8 @@ public class UserServiceImpl implements UserService {
 			user.setEmail(updateUserDTO.getEmail());
 		}
 		//đổi password ko cần xét giống phần còn lại của database
-		if(!user.getPassword().equals(updateUserDTO.getPassword())) {
+		updateUserDTO.setPassword(encoder.encode(updateUserDTO.getPassword()));
+		if(!encoder.matches(updateUserDTO.getPassword(), user.getPassword())) {
 			user.setPassword(updateUserDTO.getPassword());
 		}
 		
