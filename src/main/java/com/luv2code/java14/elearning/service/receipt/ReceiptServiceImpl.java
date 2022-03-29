@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.luv2code.java14.elearning.dto.ReceiptDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
 import com.luv2code.java14.elearning.entity.receipt.Receipt;
 import com.luv2code.java14.elearning.entity.receipt.ReceiptCourse;
@@ -37,7 +39,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 	private CourseRepository courseRepository;
 
 	@Override
-	public Receipt createReceipt(int userId, int[] courseId) {
+	public ReceiptDTO createReceipt(int userId, int[] courseId) {
 		
 		LocalDateTime createdAt = LocalDateTime.now(); 
 		
@@ -58,24 +60,24 @@ public class ReceiptServiceImpl implements ReceiptService {
 		receipt.setUser(user);
 		receipt.setCreatedAt(createdAt);
 		receiptRepository.save(receipt);
-
-		// Find recently created Receipt by User Id
-		Receipt r = receiptRepository.findReceiptCreatedByUserId(userId, createdAt);
 		
 		// Create Receipt_Course 
-		receiptCourseService.createReceiptCourse(r.getId(), courseId);
+		receiptCourseService.createReceiptCourse(receipt.getId(), courseId);
 		
 		// Get list of Receipt_Course by Receipt ID
-		List<ReceiptCourse> receiptCourse = receiptCourseRepository.getReceiptCourse(r.getId());
+		List<ReceiptCourse> receiptCourse = receiptCourseRepository.getReceiptCourse(receipt.getId());
 		
 		// Update price for Receipt_Course
 		double totalPrice = 0;
 		for (ReceiptCourse rc : receiptCourse) {
 			totalPrice += rc.getPrice();
 		}
-		r.setTotalPrice(totalPrice);
+		receipt.setTotalPrice(totalPrice);
+		receiptRepository.save(receipt);
 		
-		return r;
+		ReceiptDTO rDTO = new ReceiptDTO();
+		BeanUtils.copyProperties(receipt, rDTO);
+		return rDTO;
 		
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
+import com.luv2code.java14.elearning.dto.ReceiptDTO;
 import com.luv2code.java14.elearning.entity.receipt.Receipt;
 import com.luv2code.java14.elearning.service.receipt.ReceiptService;
 
@@ -23,7 +24,7 @@ public class ReceiptControllerImpl implements ReceiptController {
 	@Override
 	public ResponseEntity<Object> createReceipt(int userId, int[] courseId) {
 
-		Receipt receipt = service.createReceipt(userId, courseId);
+		ReceiptDTO receipt = service.createReceipt(userId, courseId);
 		
 		return ResponseHandler.getResponse(receipt, HttpStatus.OK);
 	}

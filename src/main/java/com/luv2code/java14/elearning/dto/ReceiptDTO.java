@@ -21,9 +21,7 @@ public class ReceiptDTO {
 
 	private int id;
 	
-	private User user;
-	
 	private double totalPrice;
 	
-	private LocalDateTime createAt;
+	private LocalDateTime createdAt;
 }
