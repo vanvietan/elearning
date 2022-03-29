@@ -1,5 +1,9 @@
 package com.luv2code.java14.elearning.dto;
 
+import java.time.LocalDateTime;
+
+import com.luv2code.java14.elearning.entity.user.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,9 +17,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class LibraryDTO {
-  
-	private int rating;  
+public class ReceiptDTO {
+
+	private int id;
 	
-	private int progress;
+	private User user;
+	
+	private double totalPrice;
+	
+	private LocalDateTime createAt;
 }
