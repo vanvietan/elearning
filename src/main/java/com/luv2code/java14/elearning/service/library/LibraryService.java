@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.luv2code.java14.elearning.dto.CourseDTO;
 import com.luv2code.java14.elearning.dto.LibraryDTO;
+import com.luv2code.java14.elearning.entity.library.Library;
 
 public interface LibraryService {
 
@@ -16,5 +17,7 @@ public interface LibraryService {
 	LibraryDTO rateTheCourse(int courseId, int userId, int rating);
 
 	LibraryDTO userLearningProgress(int userId, int courseId);
+	
 
 }
+ 

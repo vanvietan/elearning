@@ -112,7 +112,12 @@ public class LibraryServiceImpl implements LibraryService {
 		libraryRepository.save(rateCourse);
 		LibraryDTO dto = new LibraryDTO();
 		BeanUtils.copyProperties(rateCourse, dto);
-		return dto;
+		
+		double avgRating =  libraryRepository.averageRatingOfTheCourse(courseId);
+		double avgCourseRating = (avgRating + rateCourse.getRating())/2;
+		course.setRating((int) avgCourseRating);
+		
+		return dto;		
 	}
 
 	@Override
@@ -152,5 +157,7 @@ public class LibraryServiceImpl implements LibraryService {
 		
 		return dto;
 	}
+
+
 	
 }
