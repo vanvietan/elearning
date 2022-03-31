@@ -14,4 +14,5 @@ public interface ReceiptCourseRepository extends JpaRepository<ReceiptCourse, In
 
 	@Query(value="SELECT * FROM receipt_course WHERE receipt_id = ?1", nativeQuery = true)
 	List<ReceiptCourse> getReceiptCourse(int id);
+
 }

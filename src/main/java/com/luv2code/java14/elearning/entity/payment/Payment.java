@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.luv2code.java14.elearning.entity.user.User;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,16 +31,18 @@ public class Payment {
 	@Column(name="id")
 	private int id;
 	
-//	private int userId;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@Column(name="name", nullable= false)
 	private String name;
 	
 	@Column(name="number", nullable= false)
-	private int number;
+	private String number;
 	
 	@Column(name="security_code", nullable= false)
-	private int securityCode;
+	private String securityCode;
 	
 	@Column(name="expired_date", nullable= false)
 	private Date expiredDate;

@@ -1,6 +1,7 @@
 package com.luv2code.java14.elearning.repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,9 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Integer> {
 
 	@Query(value="SELECT * FROM receipt WHERE user_id = ?1 AND created_at = ?2", nativeQuery = true)
 	Receipt findReceiptCreatedByUserId(int userId, LocalDateTime createdAt);
+
+	@Query(value="SELECT * FROM receipt WHERE user_id = ?1", nativeQuery = true)
+	List<Receipt> findReceiptByUserId(int userId);
+	
+	
 }

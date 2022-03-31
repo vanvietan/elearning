@@ -1,5 +1,8 @@
 package com.luv2code.java14.elearning.controller.payment;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
+import com.luv2code.java14.elearning.entity.payment.Payment;
 import com.luv2code.java14.elearning.service.payment.PaymentService;
 
 @RestController
@@ -21,14 +25,18 @@ public class PaymentControllerImpl implements PaymentController {
 	private PaymentService service;
 	
 	@Override
-	public ResponseEntity<Object> createPayment(@Valid PaymentDTO paymentDTO, BindingResult bindingResult) {
+	public ResponseEntity<Object> createPayment(int userId, @Valid PaymentDTO paymentDTO) {
 		
-		if(bindingResult.hasErrors()) {
-			return ResponseHandler.getErrorResponse(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
-		}
-		
-		service.createPayment(paymentDTO);
+		service.createPayment(paymentDTO, userId);
 		
 		return ResponseHandler.getResponse("Create payment successfully", HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Object> getPayment(int userId) {
+		
+		List<PaymentDTO> payment = service.getPayment(userId);
+		
+		return ResponseHandler.getResponse(payment, HttpStatus.OK);
 	}
 }
