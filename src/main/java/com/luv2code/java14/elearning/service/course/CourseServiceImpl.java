@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luv2code.java14.elearning.common.exception.InvalidCourseException;
+import com.luv2code.java14.elearning.common.exception.InvalidEntityException;
 import com.luv2code.java14.elearning.dto.CourseDTO;
 import com.luv2code.java14.elearning.dto.UpdateCourseDTO;
 import com.luv2code.java14.elearning.entity.course.Course;
@@ -61,7 +61,7 @@ public class CourseServiceImpl implements CourseService {
 		
 		if (!course.getName().equals(dto.getName())) {		
 			if (repository.findByName(dto.getName()).isPresent()){
-				throw new InvalidCourseException("Course name has been used.");
+				throw new InvalidEntityException("Course name has been used.");
 			}
 			
 			course.setName(dto.getName());
@@ -80,7 +80,7 @@ public class CourseServiceImpl implements CourseService {
 		Optional<Course> courseOpt = repository.findById(id);
 		
 		if (!courseOpt.isPresent())
-			throw new InvalidCourseException("Role ID is not existed.");
+			throw new InvalidEntityException("Role ID is not existed.");
 		
 		repository.delete(courseOpt.get());
 	}
@@ -89,7 +89,7 @@ public class CourseServiceImpl implements CourseService {
 	public CourseDTO getCourseById(int id) {
 		Optional<Course> courseOpt = repository.findById(id);
 		if(!courseOpt.isPresent()) {
-			throw new InvalidCourseException("Course id is not valid");
+			throw new InvalidEntityException("Course id is not valid");
 		}
 		CourseDTO dto = new CourseDTO();
 		BeanUtils.copyProperties(courseOpt, dto);
