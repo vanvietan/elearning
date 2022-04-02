@@ -14,6 +14,6 @@ public class LoginDTO {
 	private String username;
 	
 	@NotBlank
-	@Size(min = 8)
+	@Size(min = 4)
 	private String password;
 }

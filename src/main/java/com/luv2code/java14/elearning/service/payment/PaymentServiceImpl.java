@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.luv2code.java14.elearning.common.exception.InvalidEntityException;
+import com.luv2code.java14.elearning.dto.PaymentBankingDTO;
 import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 import com.luv2code.java14.elearning.entity.payment.Payment;
@@ -41,7 +42,8 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		List<Payment> listpm = paymentRepository.findAll();
 		for (Payment pm : listpm) {
-			if(encoder.matches(createPaymentDTO.getNumber(), pm.getNumber())) {
+			if(encoder.matches(createPaymentDTO.getNumber(), pm.getNumber())
+					&& userId == pm.getUser().getId()) {
 				throw new InvalidEntityException("Card already existed");
 			}
 		}
@@ -73,8 +75,10 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 	
 	@Override
-	public Optional<Payment> createPaymentBankingDTO(int paymentId) {
-		
-		return paymentRepository.findById(paymentId);
+	public PaymentBankingDTO getPaymentBanking(int paymentId) {
+		Optional<Payment> payment = paymentRepository.findById(paymentId);
+		PaymentBankingDTO dto = new PaymentBankingDTO();
+		BeanUtils.copyProperties(payment, dto);
+		return dto;
 	}
 }

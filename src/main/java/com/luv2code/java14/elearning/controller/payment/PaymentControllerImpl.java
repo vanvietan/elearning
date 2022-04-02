@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
+import com.luv2code.java14.elearning.dto.PaymentBankingDTO;
 import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 import com.luv2code.java14.elearning.entity.payment.Payment;
@@ -39,5 +40,13 @@ public class PaymentControllerImpl implements PaymentController {
 		List<PaymentDTO> payment = service.getPayment(userId);
 		
 		return ResponseHandler.getResponse(payment, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<Object> getPaymentBanking(int userId) {
+		
+		PaymentBankingDTO dto = service.getPaymentBanking(userId);
+		
+		return ResponseHandler.getResponse(dto, HttpStatus.OK);
 	}
 }

@@ -24,4 +24,9 @@ public interface PaymentController {
 			@PathVariable(value="userId") int userId,
 			@Valid @RequestBody PaymentCreateDTO paymentDTO
 			);
+	
+	@GetMapping(value="/payment-banking/{userId}")
+	ResponseEntity<Object> getPaymentBanking(
+			@PathVariable(value="userId") int userId
+			);
 }

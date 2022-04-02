@@ -16,6 +16,6 @@ public interface PaymentService {
 
 	void createPayment(PaymentCreateDTO createPaymentDTO, int userId);
 
-	Optional<Payment> createPaymentBankingDTO(int paymentId);
+	PaymentBankingDTO getPaymentBanking(int paymentId);
 
 }

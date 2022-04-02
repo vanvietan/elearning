@@ -61,7 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// cấu hình xác thực cho các api
 		http.antMatcher("/**").authorizeRequests()
 			.antMatchers("/api/login").permitAll()
-			.antMatchers("/api/**").permitAll()
+			
+//			.antMatchers("/api/sign-up").permitAll()
+			
+			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated();
 	}	
 }
