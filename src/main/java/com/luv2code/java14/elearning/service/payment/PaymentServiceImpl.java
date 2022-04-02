@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.luv2code.java14.elearning.common.exception.InvalidEntityException;
 import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 import com.luv2code.java14.elearning.entity.payment.Payment;
@@ -37,7 +38,14 @@ public class PaymentServiceImpl implements PaymentService {
 				() -> new EntityNotFoundException("User is not existed"));
 		
 		Payment payment = new Payment();
-
+		
+		List<Payment> listpm = paymentRepository.findAll();
+		for (Payment pm : listpm) {
+			if(encoder.matches(createPaymentDTO.getNumber(), pm.getNumber())) {
+				throw new InvalidEntityException("Card already existed");
+			}
+		}
+	
 		payment.setName(encoder.encode(createPaymentDTO.getName().toUpperCase()));
 		payment.setSecurityCode(encoder.encode(createPaymentDTO.getSecurityCode()));
 		payment.setNumber(encoder.encode(createPaymentDTO.getNumber()));
@@ -63,7 +71,6 @@ public class PaymentServiceImpl implements PaymentService {
 				})
 				.collect(Collectors.toList());
 	}
-	
 	
 	@Override
 	public Optional<Payment> createPaymentBankingDTO(int paymentId) {

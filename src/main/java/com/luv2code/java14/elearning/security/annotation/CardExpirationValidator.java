@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.luv2code.java14.elearning.common.exception.InvalidEntityException;
+
 public class CardExpirationValidator implements ConstraintValidator<CardExpiration, String> {
 	
 	@Override
@@ -17,7 +19,7 @@ public class CardExpirationValidator implements ConstraintValidator<CardExpirati
 		try {
 			expiry = simpleDateFormat.parse(expiredDate);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new InvalidEntityException("Date is invalid");
 		}
 		boolean expired = expiry.after(new Date());
 		return expired;
