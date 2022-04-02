@@ -1,17 +1,17 @@
 package com.luv2code.java14.elearning.service.payment;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 import com.luv2code.java14.elearning.entity.payment.Payment;
 import com.luv2code.java14.elearning.entity.user.User;
@@ -30,24 +30,18 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired UserRepository userRepository;
 	
 	@Override
-	public void createPayment(@Valid PaymentDTO paymentDTO, int userId) {
+	public void createPayment(PaymentCreateDTO createPaymentDTO, int userId) {
 		
 		User user = userRepository.findById(userId)
 				.orElseThrow(
 				() -> new EntityNotFoundException("User is not existed"));
-
-		LocalDate date = LocalDate.now();
-		
-		if (paymentDTO.getExpiredDate().isAfter(date)) {
-			return;
-		}
 		
 		Payment payment = new Payment();
-		
-		BeanUtils.copyProperties(paymentDTO, payment);
-		payment.setName(encoder.encode(paymentDTO.getName()));
-		payment.setSecurityCode(encoder.encode(paymentDTO.getSecurityCode()));
-		payment.setNumber(encoder.encode(paymentDTO.getNumber()));
+
+		payment.setName(encoder.encode(createPaymentDTO.getName().toUpperCase()));
+		payment.setSecurityCode(encoder.encode(createPaymentDTO.getSecurityCode()));
+		payment.setNumber(encoder.encode(createPaymentDTO.getNumber()));
+		payment.setExpiredDate(createPaymentDTO.getExpiredDate());
 		payment.setUser(user);
 		
 		paymentRepository.save(payment);
@@ -60,8 +54,6 @@ public class PaymentServiceImpl implements PaymentService {
 				.orElseThrow(
 				() -> new EntityNotFoundException("User is not existed"));
 		
-//		Optional<Payment> payment = paymentRepository.findById(userId);
-		
 		return user.getPayments()
 				.stream()
 				.map(up -> {
@@ -71,5 +63,11 @@ public class PaymentServiceImpl implements PaymentService {
 				})
 				.collect(Collectors.toList());
 	}
-
+	
+	
+	@Override
+	public Optional<Payment> createPaymentBankingDTO(int paymentId) {
+		
+		return paymentRepository.findById(paymentId);
+	}
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.java14.elearning.common.ResponseHandler;
+import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 import com.luv2code.java14.elearning.entity.payment.Payment;
 import com.luv2code.java14.elearning.service.payment.PaymentService;
@@ -25,7 +26,7 @@ public class PaymentControllerImpl implements PaymentController {
 	private PaymentService service;
 	
 	@Override
-	public ResponseEntity<Object> createPayment(int userId, @Valid PaymentDTO paymentDTO) {
+	public ResponseEntity<Object> createPayment(int userId, @Valid PaymentCreateDTO paymentDTO) {
 		
 		service.createPayment(paymentDTO, userId);
 		

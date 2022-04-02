@@ -45,7 +45,7 @@ public class Payment {
 	private String securityCode;
 	
 	@Column(name="expired_date", nullable= false)
-	private Date expiredDate;
+	private String expiredDate;
 	
 	
 }

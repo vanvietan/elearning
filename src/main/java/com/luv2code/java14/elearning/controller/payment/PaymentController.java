@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.luv2code.java14.elearning.dto.PaymentCreateDTO;
 import com.luv2code.java14.elearning.dto.PaymentDTO;
 
 public interface PaymentController {
@@ -21,6 +22,6 @@ public interface PaymentController {
 	@PostMapping(value="/payment/{userId}")
 	public ResponseEntity<Object> createPayment(
 			@PathVariable(value="userId") int userId,
-			@Valid @RequestBody PaymentDTO paymentDTO
+			@Valid @RequestBody PaymentCreateDTO paymentDTO
 			);
 }
