@@ -30,8 +30,10 @@ public class ReceiptControllerImpl implements ReceiptController {
 	}
 
 	@Override
-	public ResponseEntity<Object> findAllReceipt() {
-		List<Receipt> receipts = service.findAll();
+	public ResponseEntity<Object> findReceiptByUserId(int userId) {
+		
+		List<ReceiptDTO> receipts = service.findReceiptByUserId(userId);
+		
 		return ResponseHandler.getResponse(receipts, HttpStatus.OK);
 	}
 }

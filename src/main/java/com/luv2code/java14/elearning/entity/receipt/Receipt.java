@@ -52,5 +52,5 @@ public class Receipt {
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					CascadeType.DETACH, CascadeType.REFRESH},
 			fetch = FetchType.LAZY)
-	private Set<ReceiptCourse> prices;
+	private Set<ReceiptCourse> receiptCourses;
 }

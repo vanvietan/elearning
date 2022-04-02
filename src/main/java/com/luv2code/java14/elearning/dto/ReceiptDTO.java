@@ -2,8 +2,6 @@ package com.luv2code.java14.elearning.dto;
 
 import java.time.LocalDateTime;
 
-import com.luv2code.java14.elearning.entity.user.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

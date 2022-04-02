@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ReceiptController {
 
-	@GetMapping(value="/receipt")
-	public ResponseEntity<Object> findAllReceipt();
+	@GetMapping(value="/receipt/{userId}")
+	public ResponseEntity<Object> findReceiptByUserId(
+			@PathVariable("userId") int userId
+			);
 	
 	@PostMapping(value="/receipt/{userId}")
 	public ResponseEntity<Object> createReceipt(

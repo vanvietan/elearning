@@ -21,9 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtUtils {
 
-	@Value("${gira.security.jwt.expiration}")
+	@Value("${elearning.security.jwt.expiration}")
 	private String jwtExpiration;
-	@Value("${gira.security.jwt.secret}")
+	@Value("${elearning.security.jwt.secret}")
 	private String secret;
 	
 	public String generateJwtToken(Authentication authentication) {

@@ -59,11 +59,11 @@ CREATE TABLE `cart_course` (
 
 CREATE TABLE `payment` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int,
+  `user_id` int NOT NULL,
   `name` varchar(255) NOT NULL,
-  `number` bigint NOT NULL,
-  `security_code` smallint NOT NULL,
-  `expired_date` date NOT NULL
+  `number` varchar(255) NOT NULL,
+  `security_code` varchar(255) NOT NULL,
+  `expired_date` varchar(255) NOT NULL
 );
 
 CREATE TABLE `receipt` (

@@ -9,6 +9,6 @@ public interface ReceiptService {
 	
 	ReceiptDTO createReceipt(int userId, int[] courseId);
 
-	List<Receipt> findAll();
+	List<ReceiptDTO> findReceiptByUserId(int userId);
 
 }

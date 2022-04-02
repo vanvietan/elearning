@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {
 				, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(value = {GiraRuntimeException.class})
-	public Object handleGiraRuntimeException(GiraRuntimeException e) {
+	@ExceptionHandler(value = {ElearningRuntimeException.class})
+	public Object handleGiraRuntimeException(ElearningRuntimeException e) {
 		return ResponseHandler.getErrorResponse(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 }

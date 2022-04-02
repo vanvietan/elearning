@@ -11,7 +11,7 @@ import com.luv2code.java14.elearning.security.dto.LoginDTO;
 
 public interface AuthController {
 
-	@PostMapping(value = "/login", produces = "application/json")
+	@PostMapping(value = "/login")
 	public ResponseEntity<Object> login(
 			@Valid @RequestBody LoginDTO dto, BindingResult bindingResult);
 }

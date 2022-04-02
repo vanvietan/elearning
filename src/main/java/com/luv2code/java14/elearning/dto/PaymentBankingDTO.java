@@ -1,5 +1,7 @@
 package com.luv2code.java14.elearning.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,9 +15,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-public class PaymentDTO {
-	
-	private int id;
+public class PaymentBankingDTO {
 
+	private String name;
+	
 	private String number;
+	
+	private String securityCode;
+	
+	private LocalDate expiredDate;
 }

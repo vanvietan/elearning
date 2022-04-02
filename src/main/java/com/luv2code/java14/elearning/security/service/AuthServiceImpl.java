@@ -40,13 +40,13 @@ public class AuthServiceImpl implements AuthService {
 		
 		// 2. if user is null return IncorrectLoginException
 		if (!userOpt.isPresent()) {
-			throw new IncorrectLoginException("Incorrect username or password.");
+			throw new IncorrectLoginException("Incorrect username.");
 		}
 		
 		String encodedPassword = userOpt.get().getPassword();
 		
 		if (!encoder.matches(dto.getPassword(), encodedPassword)) {
-			throw new IncorrectLoginException("Incorrect username or password.");
+			throw new IncorrectLoginException("Incorrect password.");
 		}
 		
 		// 3. create authentication and set into SecurityContext
@@ -58,5 +58,4 @@ public class AuthServiceImpl implements AuthService {
 		// 4. generate jwt token
 		return jwtUtils.generateJwtToken(auth);
 	}
-	
 }

@@ -2,6 +2,7 @@ package com.luv2code.java14.elearning.service.receipt;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -82,8 +83,18 @@ public class ReceiptServiceImpl implements ReceiptService {
 	}
 
 	@Override
-	public List<Receipt> findAll() {
+	public List<ReceiptDTO> findReceiptByUserId(int userId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+				() -> new EntityNotFoundException("User is not existed"));
 		
-		return receiptRepository.findAll();
+		return user.getReceipts()
+				.stream()
+				.map(ur -> {
+					ReceiptDTO dto = new ReceiptDTO();
+					BeanUtils.copyProperties(ur, dto);
+					return dto;
+				})
+				.collect(Collectors.toList());
 	}
 }

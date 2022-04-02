@@ -26,6 +26,7 @@ public interface UserController {
 			);
 	
 	@PostMapping(value="/user")
+//	@PostMapping(value="/sign-up")
 	public ResponseEntity<Object> createUser(
 			@Valid @RequestBody UserDTO userDTO,
 			BindingResult bindingResult
