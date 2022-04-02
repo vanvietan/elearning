@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.luv2code.java14.elearning.common.exception.InvalidException;
+import com.luv2code.java14.elearning.common.exception.InvalidEntityException;
 import com.luv2code.java14.elearning.common.exception.NotFoundException;
 import com.luv2code.java14.elearning.dto.UpdateUserDTO;
 import com.luv2code.java14.elearning.dto.UserDTO;
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		//Tìm một user và trả về userDTo
 		Optional<User> userOpt = repository.findById(id);
 		if(!userOpt.isPresent()) {
-			throw new InvalidException("User id is not valid");
+			throw new InvalidEntityException("User id is not valid");
 		}
 		User user = userOpt.get();
 		
@@ -69,11 +69,11 @@ public class UserServiceImpl implements UserService {
 		
 		//check email
 		if(!emailValidation.isValidEmailAddress(user.getEmail())) {
-			throw new InvalidException("Email is not valid");
+			throw new InvalidEntityException("Email is not valid");
 		}
 		//check password và retype password
 		if(!user.getPassword().equals(user.getRetypePassword())) {
-			throw new InvalidException("Password mismatch!!!");
+			throw new InvalidEntityException("Password mismatch!!!");
 		}
 		user.setPassword(encoder.encode(userDTO.getPassword()));
 		
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> userOpt = repository.findById(id);
 		
 		if(!userOpt.isPresent()) {
-			throw new InvalidException("User id is not valid");
+			throw new InvalidEntityException("User id is not valid");
 		}
 		User user = userOpt.get();
 		
@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 		// vả username dto cũng ko giống với phần còn lại database thì ta update 
 		if(!user.getUsername().equals(updateUserDTO.getUsername())) {
 			if(repository.findByUsername(updateUserDTO.getUsername()).isPresent()) {
-				throw new InvalidException("User name has been used.");
+				throw new InvalidEntityException("User name has been used.");
 			}
 			
 			user.setUsername(updateUserDTO.getUsername());
@@ -111,10 +111,10 @@ public class UserServiceImpl implements UserService {
 		}
 		if(!user.getEmail().equals(updateUserDTO.getEmail())){
 			if(repository.findByEmail(updateUserDTO.getEmail()).isPresent()) {
-				throw new InvalidException("Email has been used.");
+				throw new InvalidEntityException("Email has been used.");
 			}
 			else if(!emailValidation.isValidEmailAddress(updateUserDTO.getEmail())) {
-				throw new InvalidException("Email is not valid");
+				throw new InvalidEntityException("Email is not valid");
 			}
 			user.setEmail(updateUserDTO.getEmail());
 		}
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 		Optional <User> userOpt = repository.findById(id);
 		
 		if(!userOpt.isPresent()) {
-			throw new InvalidException("User id is not existed!");
+			throw new InvalidEntityException("User id is not existed!");
 		}
 		repository.delete(userOpt.get());
 	}
