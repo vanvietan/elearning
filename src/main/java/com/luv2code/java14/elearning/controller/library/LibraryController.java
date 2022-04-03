@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface LibraryController {
 	
@@ -37,5 +38,11 @@ public interface LibraryController {
 	public ResponseEntity<Object> userLearningProgress(
 			@PathVariable("userId") int userId,
 			@PathVariable("courseId") int courseId
+			);
+	
+	@PostMapping(value="/library/{userId}")
+	public ResponseEntity<Object> addCoursesToLibrary(
+			@PathVariable("userId") int userId,
+			@RequestParam("courseIds") int[] courseIds
 			);
 }

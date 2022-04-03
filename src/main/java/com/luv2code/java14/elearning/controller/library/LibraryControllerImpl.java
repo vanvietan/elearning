@@ -61,5 +61,13 @@ public class LibraryControllerImpl implements LibraryController{
 		return ResponseHandler.getResponse(userProgress,HttpStatus.OK);
 	}
 
+	@Override
+	public ResponseEntity<Object> addCoursesToLibrary(int userId, int[] courseIds) {
+		
+		service.addCoursesToLibrary(userId, courseIds );
+		
+		return ResponseHandler.getResponse("Add multiples courses successfully", HttpStatus.OK);
+	}
+
 	
 }
