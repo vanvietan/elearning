@@ -158,6 +158,33 @@ public class LibraryServiceImpl implements LibraryService {
 		return dto;
 	}
 
+	@Override
+	public void addCoursesToLibrary(int userId, int[] courseIds) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(
+						() -> new EntityNotFoundException("User id is not existed"));
+		for(int courseId: courseIds) {
+			Course course = courseRepository.findById(courseId)
+					.orElseThrow(
+							()-> new EntityNotFoundException("Course id is not existed"));
+		}
+		for(int courseId : courseIds) {
+			Course course = courseRepository.getById(courseId);
+			LibraryKey key = new LibraryKey(userId,courseId);
+			Optional<Library> optLibraryCourse = libraryRepository.findById(key);
+			if(optLibraryCourse.isPresent())
+				return;
+			
+			Library libraryCourse = new Library();
+			libraryCourse.setKey(key);
+			libraryCourse.setUser(user);
+			libraryCourse.setCourse(course);
+			
+			libraryRepository.save(libraryCourse);
+		}
+		
+	}
+
 
 	
 }

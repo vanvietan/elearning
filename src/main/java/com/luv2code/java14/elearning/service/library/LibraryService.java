@@ -17,6 +17,8 @@ public interface LibraryService {
 	LibraryDTO rateTheCourse(int courseId, int userId, int rating);
 
 	LibraryDTO userLearningProgress(int userId, int courseId);
+
+	void addCoursesToLibrary(int userId, int[] courseIds);
 	
 
 }
