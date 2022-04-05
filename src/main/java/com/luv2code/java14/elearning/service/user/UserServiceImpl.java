@@ -66,6 +66,10 @@ public class UserServiceImpl implements UserService {
 		//trả createdUser về lại userDTO
 		
 		User user = UserConverter.toUser(userDTO);
+//		Optional<User> userOpt = repository.findById(userDTO.getId());
+//		if(userOpt.isPresent()) {
+//			throw new InvalidEntityException("User already created");
+//		}
 		
 		//check email
 		if(!emailValidation.isValidEmailAddress(user.getEmail())) {
