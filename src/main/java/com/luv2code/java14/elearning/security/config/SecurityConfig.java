@@ -59,12 +59,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 		
 		// cấu hình xác thực cho các api
-		http.antMatcher("/**").authorizeRequests()
-			.antMatchers("/api/login").permitAll()
-			
-//			.antMatchers("/api/sign-up").permitAll()
-			.antMatchers("/api/**").permitAll()
+//		http.antMatcher("/**").authorizeRequests()
+//			.antMatchers("/api/login").permitAll()
+////			.antMatchers("/api/sign-up").permitAll()
+////			.antMatchers("/api/**").permitAll()
 //			.antMatchers("/api/**").authenticated()
-			.anyRequest().authenticated();
+//			.anyRequest().authenticated();
+		
+		http.authorizeRequests()
+			.antMatchers("/").permitAll()
+			.antMatchers("/api/payment/**").hasRole("USER")
+			.antMatchers("/").anonymous()
+			.and()
+			.formLogin()
+				.loginProcessingUrl("/api/login").permitAll()
+				.defaultSuccessUrl("/success.html", true)
+			.and()
+			.logout().permitAll();
+
 	}	
 }
